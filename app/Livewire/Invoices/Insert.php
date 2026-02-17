@@ -21,7 +21,9 @@ class Insert extends Component
     public $invoice_number = null;
     public $phone = '';
     public $address = '';
-    public $truck_number = '';
+    public $id_truck = 'Peading';
+    public $namecompany = '';
+    public $totalprice = 0;
     public $link = '';
     public $name = '';
     public $temp_images = [];
@@ -37,7 +39,7 @@ class Insert extends Component
     public $invoice_button_disabled = false;
     public $customer_fields_disabled = false;
     public $invoice_counter = 1001;
-    
+
     // Constants
     const MAX_IMAGES_PER_ITEM = 6; // Maximum 6 images per product
 
@@ -45,24 +47,25 @@ class Insert extends Component
     {
         if ($this->link && strlen($this->link) >= 5000) {
             flash()->error('الرابط طويل جداً، الحد الأقصى هو 5000 حرف');
-            return; 
+            return;
         }
-        
+
         // Validate image count before proceeding
         if (count($this->images) > self::MAX_IMAGES_PER_ITEM) {
             flash()->error('يمكنك تحميل 6 صور كحد أقصى');
             return;
         }
-        
+
         $this->validate([
             'invoice_number' => 'required',
             'selected_user' => 'required',
+            'namecompany' => 'required',
 
             'phone' => $this->customer_fields_disabled ? '' : 'required',
             'address' => $this->customer_fields_disabled ? '' : 'required',
-            'truck_number' => $this->customer_fields_disabled ? '' : 'required',
+            'id_truck' => $this->customer_fields_disabled ? '' : 'required',
 
-            'name' => 'required|string|min:2',
+       
             'quantity' => 'required|integer|min:1',
             'date_order' => 'required|integer|min:1',
             'today_date' => 'required|date',
@@ -73,15 +76,16 @@ class Insert extends Component
             // Invoice errors
             'invoice_number.required' => 'رقم الفاتورة مطلوب',
             'selected_user.required' => 'المستخدم المسؤول مطلوب',
+            'namecompany.required' => 'يرجى إدخال اسم الشركة',
+
 
             // Customer errors
             'phone.required' => 'رقم الموبايل مطلوب',
             'address.required' => 'العنوان مطلوب',
-            'truck_number.required' => 'رقم التراك مطلوب',
+            'id_truck.required' => 'رقم التراك مطلوب',
 
             // Product errors
-            'name.required' => 'اسم المنتج مطلوب',
-            'name.min' => 'اسم المنتج يجب أن يكون على الأقل حرفين',
+            
             'quantity.required' => 'الكمية مطلوبة',
             'quantity.integer' => 'الكمية يجب أن تكون رقماً',
             'quantity.min' => 'الكمية يجب أن تكون على الأقل 1',
@@ -103,9 +107,10 @@ class Insert extends Component
 
     protected $rules = [
         'invoice_number' => 'required|integer|min:1',
+        'namecompany' => 'required|string|min:2',
         'phone' => 'required|string|min:10',
         'address' => 'required|string|min:5',
-        'truck_number' => 'required|string|min:3',
+        'id_truck' => 'required|string|min:3',
         'orders' => 'required|array|min:1',
     ];
 
@@ -172,7 +177,7 @@ class Insert extends Component
         // Calculate how many more images we can add
         $currentCount = count($this->images);
         $maxCanAdd = self::MAX_IMAGES_PER_ITEM - $currentCount;
-        
+
         if ($maxCanAdd <= 0) {
             flash()->error('لقد وصلت إلى الحد الأقصى 6 صور');
             $this->temp_images = [];
@@ -181,14 +186,14 @@ class Insert extends Component
 
         // Limit the number of new images to what we can still add
         $imagesToAdd = array_slice($this->temp_images, 0, $maxCanAdd);
-        
+
         // Validate each image and add to images array
         foreach ($imagesToAdd as $image) {
             if ($image) {
                 $this->images[] = $image;
             }
         }
-        
+
         // If user tried to upload more than allowed, show warning
         if (count($this->temp_images) > $maxCanAdd) {
             flash()->warning("تم إضافة $maxCanAdd صور فقط (الحد الأقصى 6 صور)");
@@ -254,13 +259,19 @@ class Insert extends Component
 
     public function saveAll()
     {
+        if ($this->totalprice <= 0) {
+            flash()->error('input Price Sell');
+            return;
+        }
         DB::transaction(function () {
             $invoice = Invoice::create([
                 'invoice_number' => $this->invoice_number,
+                'name' => $this->namecompany,
                 'user_id' => $this->selected_user,
                 'phone' => $this->phone,
                 'address' => $this->address,
-                'truck_number' => $this->truck_number,
+                'id_truck' => $this->id_truck,
+                'status' => $this->id_truck != "Peading" ? 1 : 0,
                 'today_date' => $this->today_date,
             ]);
 
@@ -293,6 +304,7 @@ class Insert extends Component
                 }
             }
 
+
             flash()->success('تم حفظ الفاتورة بنجاح!');
 
             // Reset all fields
@@ -300,6 +312,7 @@ class Insert extends Component
         });
     }
 
+ 
     // Helper Methods
     private function resetOrderFields()
     {
@@ -320,7 +333,9 @@ class Insert extends Component
         $this->invoice_button_disabled = false;
         $this->phone = '';
         $this->address = '';
-        $this->truck_number = '';
+        $this->id_truck = 'Peading';
+        $this->namecompany = '';
+        $this->totalprice = 0;
         $this->customer_fields_disabled = false;
         $this->resetOrderFields();
         $this->today_date = now()->format('Y-m-d');

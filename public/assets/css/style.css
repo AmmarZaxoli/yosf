@@ -403,6 +403,7 @@ body {
         opacity: 0;
         transform: translateX(10px);
     }
+
     to {
         opacity: 1;
         transform: translateX(0);
@@ -417,30 +418,39 @@ body {
 .nav-item:nth-child(1) {
     animation-delay: 0.1s;
 }
+
 .nav-item:nth-child(2) {
     animation-delay: 0.15s;
 }
+
 .nav-item:nth-child(3) {
     animation-delay: 0.2s;
 }
+
 .nav-item:nth-child(4) {
     animation-delay: 0.25s;
 }
+
 .nav-item:nth-child(5) {
     animation-delay: 0.3s;
 }
+
 .nav-item:nth-child(6) {
     animation-delay: 0.35s;
 }
+
 .nav-item:nth-child(7) {
     animation-delay: 0.4s;
 }
+
 .nav-item:nth-child(8) {
     animation-delay: 0.45s;
 }
+
 .nav-item:nth-child(9) {
     animation-delay: 0.5s;
 }
+
 .nav-item:nth-child(10) {
     animation-delay: 0.55s;
 }
@@ -481,6 +491,7 @@ body {
 .sidebar::-webkit-scrollbar-thumb:hover {
     background-color: var(--primary-light);
 }
+
 /* Card Styles */
 .card {
     border: none;
@@ -603,6 +614,7 @@ label {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     margin-top: 2px;
 }
+
 .table-hover tbody tr:hover {
     background-color: rgba(13, 110, 253, 0.05);
 }
@@ -638,6 +650,7 @@ label {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     margin-top: 2px;
 }
+
 .search-container {
     max-width: 500px;
 }
@@ -667,13 +680,16 @@ label {
 .pulse-hover:hover {
     animation: pulse 1s infinite;
 }
+
 @keyframes pulse {
     0% {
         transform: scale(1);
     }
+
     50% {
         transform: scale(1.1);
     }
+
     100% {
         transform: scale(1);
     }
@@ -1102,6 +1118,7 @@ label {
     border-left: 4px solid #ef4444;
     color: #7f1d1d;
 }
+
 .fl-wrapper {
     left: 0.75em !important;
     right: auto !important;
@@ -1109,4 +1126,10 @@ label {
 
 .fl-wrapper[data-position] {
     top: 0.75em !important;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
 }

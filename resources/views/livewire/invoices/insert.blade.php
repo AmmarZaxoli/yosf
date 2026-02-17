@@ -7,23 +7,6 @@
                 </div>
 
                 <div class="card-body">
-                    <!-- Error Messages -->
-                    @if(session()->has('error'))
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <i class="fas fa-exclamation-circle me-2"></i>
-                            {{ session('error') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        </div>
-                    @endif
-
-                    <!-- Success Messages -->
-                    @if(session()->has('success'))
-                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                            <i class="fas fa-check-circle me-2"></i>
-                            {{ session('success') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        </div>
-                    @endif
 
                     <!-- Invoice Number Section -->
                     <div class="row mb-4">
@@ -34,7 +17,7 @@
                                 <input type="text" class="form-control @error('invoice_number') is-invalid @enderror"
                                     wire:model="invoice_number" readonly placeholder=" إضافة الرقم">
                                 <button class="btn btn-outline-primary" type="button" wire:click="addNewInvoice"
-                                    @if($invoice_button_disabled) disabled @endif>
+                                    @if ($invoice_button_disabled) disabled @endif>
                                     <i class="fas fa-plus"></i> إضافة رقم
                                 </button>
                             </div>
@@ -45,23 +28,21 @@
                             @enderror
                         </div>
 
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">المستخدم المسؤول <span class="text-danger">*</span></label>
+                       <div class="col-md-4 mb-3">
+                            <label class="form-label">namecompany</label>
                             <div class="input-group">
-                                <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                <select class="form-select @error('selected_user') is-invalid @enderror"
-                                    wire:model="selected_user" @if($customer_fields_disabled) disabled @endif>
-                                    <option value="1">المستخدم الرئيسي</option>
-
-                                    <!-- Your users options here -->
-                                </select>
+                                <span class="input-group-text"><i class="fas fa-city"></i></span>
+                                <input type="text" class="form-control @error('namecompany') is-invalid @enderror"
+                                    wire:model.live="namecompany"  placeholder=" namecompany">
+                               
                             </div>
-                            @error('selected_user')
+                            @error('invoice_number')
                                 <div class="text-danger small mt-1">
                                     <i class="fas fa-exclamation-circle me-1"></i> {{ $message }}
                                 </div>
                             @enderror
                         </div>
+
                     </div>
 
                     <!-- User Selection and Address -->
@@ -71,8 +52,8 @@
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-phone"></i></span>
                                 <input type="text" class="form-control @error('phone') is-invalid @enderror"
-                                    wire:model="phone" placeholder="أدخل رقم الموبايل" @if($customer_fields_disabled)
-                                    disabled @endif>
+                                    wire:model="phone" placeholder="أدخل رقم الموبايل"
+                                    @if ($customer_fields_disabled) disabled @endif>
                             </div>
                             @error('phone')
                                 <div class="text-danger small mt-1">
@@ -87,7 +68,7 @@
                                 <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
                                 <input type="text" class="form-control @error('address') is-invalid @enderror"
                                     wire:model="address" placeholder="أدخل العنوان الكامل"
-                                    @if($customer_fields_disabled) disabled @endif>
+                                    @if ($customer_fields_disabled) disabled @endif>
                             </div>
                             @error('address')
                                 <div class="text-danger small mt-1">
@@ -100,18 +81,18 @@
                             <label class="form-label">رقم تراك <span class="text-danger">*</span></label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="fas fa-truck"></i></span>
-                                <input type="text" class="form-control @error('truck_number') is-invalid @enderror"
-                                    wire:model="truck_number" placeholder="أدخل رقم التراك"
-                                    @if($customer_fields_disabled) disabled @endif>
+                                <input type="text" class="form-control @error('id_truck') is-invalid @enderror" disabled
+                                     wire:model.live="id_truck" placeholder="أدخل رقم التراك"
+                                    @if ($customer_fields_disabled) disabled @endif>
                             </div>
-                            @error('truck_number')
+                            @error('id_truck')
                                 <div class="text-danger small mt-1">
                                     <i class="fas fa-exclamation-circle me-1"></i> {{ $message }}
                                 </div>
                             @enderror
                         </div>
 
-                        @if($customer_fields_disabled)
+                        @if ($customer_fields_disabled)
                             <div class="col-12">
                                 <small class="text-info d-block">
                                     <i class="fas fa-lock me-1"></i>
@@ -173,17 +154,17 @@
                                                 <input type="file"
                                                     class="form-control @error('temp_images') is-invalid @enderror"
                                                     wire:model="temp_images" multiple accept="image/*"
-                                                    @if(count($images) >= 6) disabled @endif>
+                                                    @if (count($images) >= 6) disabled @endif>
                                             </div>
                                             <small class="text-muted mt-1 d-block">
                                                 اختر صورة أو أكثر، الحد الأقصى 6 صور
-                                                @if(count($images) > 0)
+                                                @if (count($images) > 0)
                                                     <span class="text-info fw-bold">
                                                         ({{ count($images) }}/6)
                                                     </span>
                                                 @endif
                                             </small>
-                                            @if(count($images) >= 6)
+                                            @if (count($images) >= 6)
                                                 <small class="text-danger d-block">
                                                     <i class="fas fa-exclamation-triangle me-1"></i>
                                                     لقد وصلت إلى الحد الأقصى 6 صور
@@ -192,7 +173,7 @@
                                         </div>
 
                                         <!-- Clear Images Button -->
-                                        @if(count($images) > 0)
+                                        @if (count($images) > 0)
                                             <button type="button" class="btn btn-outline-danger"
                                                 wire:click="clearAllImages">
                                                 <i class="fas fa-trash"></i> مسح كل الصور
@@ -206,13 +187,13 @@
                                     @enderror
 
                                     <!-- Horizontal Image Preview -->
-                                    @if(count($images) > 0)
+                                    @if (count($images) > 0)
                                         <div class="mt-3">
                                             <h6 class="mb-2">الصور المضافة ({{ count($images) }}/6)</h6>
                                             <div class="d-flex flex-wrap gap-2">
-                                                @foreach($images as $index => $image)
+                                                @foreach ($images as $index => $image)
                                                     <div class="position-relative" style="width: 100px;">
-                                                        @if(is_string($image))
+                                                        @if (is_string($image))
                                                             <img src="{{ asset('storage/' . $image) }}"
                                                                 class="img-fluid rounded border product-image"
                                                                 style="width: 100px; height: 100px; object-fit: cover;">
@@ -258,51 +239,7 @@
                                     @enderror
                                 </div>
 
-                                <div class="col-md-3 mb-3">
-                                    <label class="form-label">مدة التوصيل (أيام) <span
-                                            class="text-danger">*</span></label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                                        <input type="number"
-                                            class="form-control @error('date_order') is-invalid @enderror"
-                                            wire:model.live="date_order" min="1">
-                                    </div>
-                                    @error('date_order')
-                                        <div class="text-danger small mt-1">
-                                            <i class="fas fa-exclamation-circle me-1"></i> {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-
-                                <div class="col-md-3 mb-3">
-                                    <label class="form-label">تاريخ اليوم</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                                        <input type="date"
-                                            class="form-control @error('today_date') is-invalid @enderror"
-                                            wire:model.live="today_date">
-                                    </div>
-                                    @error('today_date')
-                                        <div class="text-danger small mt-1">
-                                            <i class="fas fa-exclamation-circle me-1"></i> {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-
-                                <div class="col-md-3 mb-3">
-                                    <label class="form-label">تاريخ التوصيل المتوقع</label>
-                                    <div class="input-group">
-                                        <span class="input-group-text"><i class="fas fa-truck"></i></span>
-                                        <input type="text" class="form-control bg-light text-success fw-bold"
-                                            value="{{ $delivery_date }}" readonly style="cursor: default;">
-                                    </div>
-                                    @if($delivery_date)
-                                        <small class="text-info mt-1 d-block">
-                                            <i class="fas fa-info-circle me-1"></i>
-                                            {{ $date_order }} يوم بعد {{ $today_date }}
-                                        </small>
-                                    @endif
-                                </div>
+                               
 
                                 <!-- Add Order Button -->
                                 <div class="col-12 mt-3">
@@ -321,7 +258,7 @@
                     </div>
 
                     <!-- Orders Table -->
-                    @if(count($orders) > 0)
+                    @if (count($orders) > 0)
                         <div class="card mb-4">
                             <div class="card-header d-flex justify-content-between align-items-center"
                                 style="background: linear-gradient(135deg, var(--success), #3aa8d8);">
@@ -347,11 +284,11 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($orders as $index => $order)
+                                            @foreach ($orders as $index => $order)
                                                 <tr>
                                                     <td class="fw-bold">{{ $index + 1 }}</td>
                                                     <td>
-                                                        @if($order['link'])
+                                                        @if ($order['link'])
                                                             <a href="{{ $order['link'] }}" target="_blank"
                                                                 class="btn btn-sm btn-outline-primary">
                                                                 <i class="fas fa-external-link-alt"></i>
@@ -362,9 +299,9 @@
                                                     </td>
                                                     <td class="fw-bold">{{ $order['name'] }}</td>
                                                     <td>
-                                                        @if(count($order['images']) > 0)
-                                                            @foreach($order['images'] as $imageIndex => $image)
-                                                                @if(is_string($image))
+                                                        @if (count($order['images']) > 0)
+                                                            @foreach ($order['images'] as $imageIndex => $image)
+                                                                @if (is_string($image))
                                                                     <!-- Already saved image path -->
                                                                     <img src="{{ asset('storage/' . $image) }}"
                                                                         class="product-image img-thumbnail rounded"
@@ -385,10 +322,12 @@
                                                     </td>
                                                     <td>{{ $order['date_order'] }} يوم</td>
                                                     <td>{{ $order['today_date'] }}</td>
-                                                    <td class="fw-bold text-success">{{ $order['delivery_date'] }}</td>
+                                                    <td class="fw-bold text-success">{{ $order['delivery_date'] }}
+                                                    </td>
                                                     <td>
                                                         <button class="btn btn-sm btn-outline-danger"
-                                                            wire:click="removeOrder({{ $index }})" title="حذف">
+                                                            wire:click="removeOrder({{ $index }})"
+                                                            title="حذف">
                                                             <i class="fas fa-trash"></i>
                                                         </button>
                                                     </td>
@@ -407,9 +346,36 @@
                             </div>
                         </div>
                     @endif
-
+                    <div class="col-md-4 mb-3">
+                        <label class="form-label"> مبلغ البيع الفاتورة <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-truck"></i></span>
+                            <input type="text" class="form-control @error('totalprice') is-invalid @enderror"
+                                 wire:model="totalprice" placeholder="0.00"
+                                >
+                        </div>
+                        @error('totalprice')
+                            <div class="text-danger small mt-1">
+                                <i class="fas fa-exclamation-circle me-1"></i> {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
                     <!-- Action Buttons -->
                     <div class="row mt-4">
+
+                        <div class="col-md-6 mb-2">
+                            <button class="btn btn-primary w-100 py-2" wire:click="saveAll"
+                                wire:loading.attr="disabled" wire:target="saveAll"
+                                @if (count($orders) === 0) disabled @endif>
+                                <span wire:loading.remove wire:target="saveAll">
+                                    <i class="fas fa-save me-2"></i> حفظ الفاتورة
+                                </span>
+                                <span wire:loading wire:target="saveAll">
+                                    <i class="fas fa-spinner fa-spin me-2"></i> جاري الحفظ...
+                                </span>
+                            </button>
+                        </div>
+
                         <div class="col-md-6 mb-2">
                             <button class="btn btn-danger w-100 py-2" wire:click="clearAll"
                                 wire:loading.attr="disabled">
@@ -421,27 +387,10 @@
                                 </span>
                             </button>
                         </div>
-                        <div class="col-md-6 mb-2">
-                            <button class="btn btn-primary w-100 py-2" wire:click="saveAll" wire:loading.attr="disabled"
-                                wire:target="saveAll" @if(count($orders) === 0) disabled @endif>
-                                <span wire:loading.remove wire:target="saveAll">
-                                    <i class="fas fa-save me-2"></i> حفظ الفاتورة
-                                </span>
-                                <span wire:loading wire:target="saveAll">
-                                    <i class="fas fa-spinner fa-spin me-2"></i> جاري الحفظ...
-                                </span>
-                            </button>
-                        </div>
+
                     </div>
 
-                    <!-- Flash Message -->
-                    @if(session()->has('message'))
-                        <div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
-                            <i class="fas fa-check-circle me-2"></i>
-                            {{ session('message') }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        </div>
-                    @endif
+                 
                 </div>
             </div>
         </div>

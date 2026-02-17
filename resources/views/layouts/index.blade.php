@@ -82,9 +82,21 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link {{ Route::is('invoices.Preparation') ? 'active' : '' }}"
+                                    href="{{ route('invoices.Preparation') }}">
+                                    <span class="nav-text"> تحضير</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link {{ Route::is('invoices.edit') ? 'active' : '' }}"
                                     href="{{ route('invoices.edit') }}">
                                     <span class="nav-text">تعديل الطلبات</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Route::is('invoices.track') ? 'active' : '' }}"
+                                    href="{{ route('invoices.track') }}">
+                                    <span class="nav-text">Truck</span>
                                 </a>
                             </li>
 

@@ -93,7 +93,7 @@ class Edit extends Component
             $this->editInvoiceNumber = $invoice->invoice_number;
             $this->editPhone = $invoice->phone;
             $this->editAddress = $invoice->address;
-            $this->editTruckNumber = $invoice->truck_number;
+            $this->editTruckNumber = $invoice->id_truck;
             $this->editUserId = $invoice->user_id ?? User::first()->id;
             $this->editTodayDate = $invoice->today_date ? Carbon::parse($invoice->today_date)->format('Y-m-d') : now()->format('Y-m-d');
 
@@ -163,8 +163,9 @@ class Edit extends Component
     #[On('confirmDeleteInvoice')]
     public function deleteInvoice($invoiceId)
     {
+
         if ($invoiceId) {
-            Invoice::find($invoiceId)->delete();
+            Invoice::findOrFail($invoiceId)->delete();
 
             $this->dispatch('showSuccessAlert', 'تم حذف الفاتورة بنجاح!');
             $this->dispatch('invoiceUpdated');
@@ -300,9 +301,9 @@ class Edit extends Component
         // Validate invoice data
         $this->validate([
             'editInvoiceNumber' => 'required|integer|min:1|unique:invoices,invoice_number,' . ($this->selectedInvoiceId ?? 'NULL'),
-            'editPhone' => 'required|string|min:10',
-            'editAddress' => 'required|string|min:5',
-            'editTruckNumber' => 'required|string|min:3',
+            'editPhone' => 'required|string|min:2',
+            'editAddress' => 'required|string|min:2',
+            'editTruckNumber' => 'nullable',
             'editTodayDate' => 'required|date',
         ]);
 
@@ -328,13 +329,13 @@ class Edit extends Component
 
             // Find or create invoice
             if ($this->selectedInvoiceId) {
-                $invoice = Invoice::find($this->selectedInvoiceId);
+                $invoice = Invoice::findOrFail($this->selectedInvoiceId);
                 $invoice->update([
                     'invoice_number' => $this->editInvoiceNumber,
                     'user_id' => $this->editUserId,
                     'phone' => $this->editPhone,
                     'address' => $this->editAddress,
-                    'truck_number' => $this->editTruckNumber,
+                    'id_truck' => $this->editTruckNumber,
                     'today_date' => $this->editTodayDate,
                 ]);
             } else {
@@ -343,7 +344,7 @@ class Edit extends Component
                     'user_id' => $this->editUserId,
                     'phone' => $this->editPhone,
                     'address' => $this->editAddress,
-                    'truck_number' => $this->editTruckNumber,
+                    'id_truck' => $this->editTruckNumber,
                     'today_date' => $this->editTodayDate,
                 ]);
             }
@@ -363,7 +364,7 @@ class Edit extends Component
             foreach ($this->editOrders as $order) {
                 if (!empty($order['id']) && in_array($order['id'], $existingItemIds)) {
                     // Update existing product
-                    $item = InvoiceItem::find($order['id']);
+                    $item = InvoiceItem::findOrFail($order['id']);
                     if ($item) {
                         $item->update([
                             'name' => $order['name'],
@@ -399,9 +400,9 @@ class Edit extends Component
             $this->dispatch('invoiceUpdated');
         } catch (\Exception $e) {
             DB::rollBack();
-flash()->error('حدث خطأ أثناء حفظ الفاتورة: ' . $e->getMessage());
+            flash()->error('حدث خطأ أثناء حفظ الفاتورة: ' . $e->getMessage());
             $this->dispatch('showErrorAlert', 'حدث خطأ أثناء حفظ الفاتورة. يرجى المحاولة مرة أخرى.');
-            }
+        }
     }
 
     private function processItemImages($item, $order)
@@ -535,7 +536,7 @@ flash()->error('حدث خطأ أثناء حفظ الفاتورة: ' . $e->getMes
                     $q->where('invoice_number', 'like', '%' . $this->search . '%')
                         ->orWhere('phone', 'like', '%' . $this->search . '%')
                         ->orWhere('address', 'like', '%' . $this->search . '%')
-                        ->orWhere('truck_number', 'like', '%' . $this->search . '%')
+                        ->orWhere('id_truck', 'like', '%' . $this->search . '%')
                         ->orWhereHas('items', function ($itemQuery) {
                             $itemQuery->where('name', 'like', '%' . $this->search . '%');
                         });

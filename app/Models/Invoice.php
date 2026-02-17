@@ -8,10 +8,13 @@ class Invoice extends Model
 {
     protected $fillable = [
         'invoice_number',
-        'user_id', // added
+        'name',
+        'user_id',
         'phone',
         'address',
-        'truck_number',
+        'id_truck',
+        'status',
+        'is_active',
         'today_date',
     ];
 
@@ -24,6 +27,8 @@ class Invoice extends Model
         return $this->hasMany(InvoiceItem::class);
     }
 
-    
-    
+    public function infoInvoice()
+    {
+        return $this->belongsTo(InfoInvoice::class, 'id_truck', 'number_track');
+    }
 }
