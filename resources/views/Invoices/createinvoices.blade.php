@@ -2,7 +2,7 @@
 
 @section('content')
     <div style="padding: 10px">
-        <livewire:invoices.insert />
+        <livewire:Invoices.insert />
     </div>
 @endsection
 

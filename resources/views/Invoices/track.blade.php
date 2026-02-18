@@ -2,7 +2,7 @@
 
 @section('content')
 
-        <livewire:invoices.track/>
+        <livewire:Invoices.track/>
    
 @endsection
 
