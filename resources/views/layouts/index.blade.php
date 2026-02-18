@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 
 <head>
-    <link rel="icon" type="image/png" href="{{ asset('images/logolaxe.png') }}">
+    {{-- <link rel="icon" type="image/png" href="{{ asset('images/logolaxe.png') }}"> --}}
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -59,14 +59,14 @@
             <div class="nav-group">
 
                 <li class="nav-item">
-                    <a class="nav-link {{ Route::is('create.invoices', 'invoices.show') ? '' : 'collapsed' }}"
+                    <a class="nav-link {{ Route::is('create.invoices', 'invoices.show','invoices.Preparation','invoices.track','invoices.sell') ? '' : 'collapsed' }}"
                         data-bs-toggle="collapse" href="#productsMenu" role="button"
                         aria-expanded="{{ Route::is('create.invoices') ? 'true' : 'false' }}">
                         <span class="nav-icon"><i class="bi bi-box-seam"></i></span>
                         <span class="nav-text">إدارة الطلبات</span>
                         <span class="nav-arrow"><i class="bi bi-chevron-left"></i></span>
                     </a>
-                    <div class="collapse {{ Route::is('create.invoices', 'invoices.show', 'invoices.edit') ? 'show' : '' }}"
+                    <div class="collapse {{ Route::is('create.invoices', 'invoices.show', 'invoices.edit','invoices.Preparation','invoices.track','invoices.sell') ? 'show' : '' }}"
                         id="productsMenu">
                         <ul class="submenu">
                             <li class="nav-item">
@@ -78,13 +78,13 @@
                             <li class="nav-item">
                                 <a class="nav-link {{ Route::is('invoices.show') ? 'active' : '' }}"
                                     href="{{ route('invoices.show') }}">
-                                    <span class="nav-text">عرض الطلبات</span>
+                                    <span class="nav-text">عرض الطلبيات</span>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link {{ Route::is('invoices.Preparation') ? 'active' : '' }}"
                                     href="{{ route('invoices.Preparation') }}">
-                                    <span class="nav-text"> تحضير</span>
+                                    <span class="nav-text"> مسح التراك على الفواتير </span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -96,7 +96,13 @@
                             <li class="nav-item">
                                 <a class="nav-link {{ Route::is('invoices.track') ? 'active' : '' }}"
                                     href="{{ route('invoices.track') }}">
-                                    <span class="nav-text">Truck</span>
+                                    <span class="nav-text">تجهيز</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{ Route::is('invoices.sell') ? 'active' : '' }}"
+                                    href="{{ route('invoices.sell') }}">
+                                    <span class="nav-text">تم البيع</span>
                                 </a>
                             </li>
 
@@ -126,7 +132,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('assets/js/script.js') }}"></script>
-
     @livewireScripts
 
     <script>

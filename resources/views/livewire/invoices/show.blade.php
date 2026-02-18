@@ -188,6 +188,7 @@
 
 
 
+
     <!-- Filters Section -->
     <div class="filters-section">
         <div class="filters-wrapper">
@@ -432,7 +433,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="existingTruckModal" data-bs-backdrop="static" wire:ignore.self>
+    {{-- <div class="modal fade" id="existingTruckModal" data-bs-backdrop="static" wire:ignore.self>
         <div class="modal-dialog">
             <div class="modal-content border-success">
                 <div class="modal-header bg-success text-white">
@@ -466,13 +467,13 @@
                     @endif
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
                     <button type="button" wire:click="AddToExistingTruck" class="btn btn-success">تحديث
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
                         وإضافة</button>
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
 
     <script>

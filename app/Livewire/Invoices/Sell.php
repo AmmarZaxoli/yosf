@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Invoices;
 
+
+
 use App\Models\InfoInvoice;
 use App\Models\Invoice;
 use Livewire\Component;
@@ -9,7 +11,7 @@ use Livewire\WithPagination;
 use Livewire\Attributes\On;
 use Illuminate\Support\Facades\DB;
 
-class Track extends Component
+class Sell extends Component
 {
     use WithPagination;
 
@@ -74,47 +76,16 @@ class Track extends Component
     public function ordered($id)
     {
         InfoInvoice::findOrFail($id)->update([
-            'status' => 1
+            'status' => 0
         ]);
     }
 
 
-    public function confirmDeleteTruck($id)
-    {
-        $this->dispatch('confirm-delete-truck', id: $id);
-    }
-    #[On('deleteTruckConfirmed')]
-    public function deleteTruck($id)
-    {
-        if (! $truck = InfoInvoice::find($id)) {
-            $this->dispatch(
-                'swal',
-                title: 'التراك غير موجود',
-                icon: 'error'
-            );
-            return;
-        }
-
-        DB::transaction(function () use ($truck) {
-
-            // تحديث الفواتير الى Pending
-            Invoice::where('id_truck', $truck->number_track)
-                ->update([
-                    'id_truck' => 'Pending',
-                    'status'   => 0
-                ]);
-
-            // حذف التراك
-            $truck->delete();
-        });
-
-        flash()->success('تم حذف التراك بنجاح');
-    }
-
+   
     public function render()
     {
         $trucks = InfoInvoice::query()
-            ->where('status', 0) 
+            ->where('status', 1) 
             ->select('info_invoices.*')
             ->selectSub(function ($query) {
                 $query->from('invoices')
@@ -128,7 +99,7 @@ class Track extends Component
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
 
-        return view('livewire.invoices.track', [
+        return view('livewire.invoices.sell', [
             'trucks' => $trucks,
         ]);
     }

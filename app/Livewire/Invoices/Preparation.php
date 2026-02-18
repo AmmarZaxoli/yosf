@@ -1,10 +1,8 @@
 <?php
 
-
-
 namespace App\Livewire\Invoices;
 
-
+use App\Models\InfoInvoice;
 use App\Models\Invoice;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
@@ -13,45 +11,103 @@ use Livewire\WithPagination;
 class Preparation extends Component
 {
     use WithPagination;
+
     public $editId;
     public $id_truck;
+    public $search = '';
+    public $dateFrom = '';
+    public $dateTo = '';
+    public $perPage = 10;
 
-    public function openEditModal($id)
+    public $allTrucks = [];
+
+    public $newTruckNumber;
+    public $transferringInvoiceId;
+
+    public function prepareTransfer($invoiceId)
+    {
+        $this->transferringInvoiceId = $invoiceId;
+        $this->dispatch('open-transfer-modal');
+    }
+
+    public function transferTruck()
+    {
+        if ($this->newTruckNumber) {
+            $invoice = Invoice::find($this->transferringInvoiceId);
+            $invoice->update(['id_truck' => $this->newTruckNumber]);
+
+            $this->dispatch('close-modal-transfer');
+            $this->reset(['newTruckNumber', 'transferringInvoiceId']);
+
+            flash()->success('تم التحويل بنجاح');
+        }
+    }
+
+
+    public function mount()
+    {
+        $this->allTrucks = InfoInvoice::where('status', 0)->get();
+    }
+    protected $queryString = [
+        'search' => ['except' => ''],
+        'dateFrom' => ['except' => ''],
+        'dateTo' => ['except' => ''],
+        'perPage' => ['except' => 10],
+    ];
+
+    public function updatedSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedDateFrom()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedDateTo()
+    {
+        $this->resetPage();
+    }
+
+    public function updatedPerPage()
+    {
+        $this->resetPage();
+    }
+
+    public function clearFilters()
+    {
+        $this->search = '';
+        $this->dateFrom = '';
+        $this->dateTo = '';
+        $this->perPage = 10;
+        $this->resetPage();
+    }
+
+
+    protected $listeners = [
+        'clearTruckConfirmed' => 'updateInvoice'
+    ];
+
+
+    public function updateInvoice($id)
     {
         $invoice = Invoice::findOrFail($id);
 
-        $this->editId = $invoice->id;
-        $this->id_truck = $invoice->id_truck;
+        $invoice->update([
+            'id_truck' => 'Peading',
+            'status' => 0
+        ]);
 
-        $this->dispatch('show-edit-modal');
+        $this->dispatch('truckCleared'); // optional success event
+
+        flash()->success('تم مسح التراك بنجاح');
     }
-
-    public function updateInvoice()
-    {
-        // Determine the values to update
-        $updateData = [
-            'id_truck' => $this->id_truck ?: 'Peading', // if empty, use 'Peading'
-        ];
-
-        // If truck number is empty, also set status = 0
-        if (empty($this->id_truck)) {
-            $updateData['status'] = 0;
-        }
-
-        // Update the invoice
-        Invoice::findOrFail($this->editId)->update($updateData);
-
-        flash()->success('Saved Successfully');
-
-        $this->dispatch('close-modal');
-    }
-
 
 
 
     public function render()
     {
-
         $query = Invoice::query()
             ->withCount(['items as items_count'])
             ->addSelect([
@@ -62,8 +118,27 @@ class Preparation extends Component
             ->where('status', 1)
             ->where('is_active', 0);
 
-        $invoices = $query->orderBy('created_at', 'desc')->paginate(10);
+        // Apply search filter
+        if (!empty($this->search)) {
+            $query->where(function ($q) {
+                $q->where('invoice_number', 'like', '%' . $this->search . '%')
+                    ->orWhere('name', 'like', '%' . $this->search . '%')
+                    ->orWhere('phone', 'like', '%' . $this->search . '%')
+                    ->orWhere('address', 'like', '%' . $this->search . '%')
+                    ->orWhere('id_truck', 'like', '%' . $this->search . '%');
+            });
+        }
 
+        // Apply date filters
+        if (!empty($this->dateFrom)) {
+            $query->whereDate('today_date', '>=', $this->dateFrom);
+        }
+
+        if (!empty($this->dateTo)) {
+            $query->whereDate('today_date', '<=', $this->dateTo);
+        }
+
+        $invoices = $query->orderBy('created_at', 'desc')->paginate($this->perPage);
 
         return view('livewire.invoices.preparation', [
             'invoices' => $invoices,

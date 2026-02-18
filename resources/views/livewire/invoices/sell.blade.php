@@ -6,18 +6,21 @@
                 <div class="card-body p-4">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
-                            <h2 class="text-white mb-2">📋 تتبع الفواتير</h2>
-                            <p class="text-white-50 mb-0">عرض وإدارة جميع الفواتير والمنتجات المرتبطة بها</p>
+                            <h2 class="text-white mb-2">🚚 التراكات المباعة</h2>
+                            <p class="text-white-50 mb-0">
+                                عرض وإدارة جميع التراكات التي تم بيع فواتيرها
+                            </p>
                         </div>
                         <div class="d-flex gap-2">
                             <span class="badge bg-white text-primary p-3 fs-6">
-                                <i class="bi bi-file-text me-2"></i>
-                                إجمالي الفواتير: {{ $trucks->total() }}
+                                <i class="bi bi-truck me-2"></i>
+                                إجمالي التراكات المباعة: {{ $trucks->total() }}
                             </span>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -90,8 +93,9 @@
 
                                             <button class="btn btn-sm btn-outline-primary"
                                                 wire:click="ordered('{{ $truck->id }}')">
-                                                <i class="fas fa-check"></i>
+                                                <i class="fas fa-undo" style="color: red"></i>
                                             </button>
+
 
                                             <button class="btn btn-sm btn-outline-primary"
                                                 wire:click="viewTruckInvoices('{{ $truck->number_track }}')">
@@ -99,10 +103,6 @@
                                             </button>
 
 
-                                            <button class="btn btn-sm btn-outline-danger"
-                                                wire:click="confirmDeleteTruck({{ $truck->id }})">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
 
                                         </td>
                                     </tr>
@@ -173,53 +173,6 @@
             </div>
         </div>
     </div>
-
-
-
-    <script>
-        document.addEventListener('livewire:init', () => {
-
-            // ===============================
-            // Confirm Delete
-            // ===============================
-            Livewire.on('confirm-delete-truck', (event) => {
-
-                Swal.fire({
-                    title: "تأكيد الحذف",
-                    text: "سيتم حذف التراك وتحويل الفواتير إلى Pending",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonText: "نعم احذف",
-                    cancelButtonText: "إلغاء"
-                }).then((result) => {
-
-                    if (result.isConfirmed) {
-                        Livewire.dispatch('deleteTruckConfirmed', {
-                            id: event.id
-                        });
-                    }
-
-                });
-
-            });
-
-
-            // ===============================
-            // Success Alert
-            // ===============================
-            Livewire.on('swal', (event) => {
-
-                Swal.fire({
-                    title: event.title,
-                    icon: event.icon,
-                    timer: 2000,
-                    showConfirmButton: false
-                });
-
-            });
-
-        });
-    </script>
 
     <style>
         .bg-gradient-primary {

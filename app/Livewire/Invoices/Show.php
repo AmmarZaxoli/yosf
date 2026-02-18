@@ -59,7 +59,7 @@ class Show extends Component
                 'status' => true,
             ]);
 
-        flash()->success('ب سەرکەفتی هاتە پاشکەفتن');
+        flash()->success('تم الحفظ بنجاح');
 
         // 4. پاقژکرن و داخستن
         $this->reset(['truck_number', 'buyprice', 'selectedInvoices', 'selectAll']);

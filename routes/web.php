@@ -11,6 +11,7 @@ Route::view('/create/invoices', 'invoices.createinvoices')->name('create.invoice
 Route::view('/invoices/show', 'invoices.show')->name('invoices.show');
 Route::view('/invoices/Preparation', 'invoices.Preparation')->name('invoices.Preparation');
 Route::view('/invoices/track', 'invoices.track')->name('invoices.track');
+Route::view('/invoices/sell', 'invoices.sell')->name('invoices.sell');
 
   Route::get('/invoices/edit', function () {
         return view('invoices.edit');
