@@ -69,12 +69,12 @@
                     <div class="collapse {{ Route::is('create.invoices', 'invoices.show', 'invoices.edit','invoices.Preparation','invoices.track','invoices.sell') ? 'show' : '' }}"
                         id="productsMenu">
                         <ul class="submenu">
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link {{ Route::is('create.invoices') ? 'active' : '' }}"
                                     href="{{ route('create.invoices') }}">
                                     <span class="nav-text">انشاء الطلبات</span>
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item">
                                 <a class="nav-link {{ Route::is('invoices.show') ? 'active' : '' }}"
                                     href="{{ route('invoices.show') }}">

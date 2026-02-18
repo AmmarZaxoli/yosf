@@ -9,12 +9,12 @@
                             <h2 class="text-white mb-2">📋 تتبع الفواتير</h2>
                             <p class="text-white-50 mb-0">عرض وإدارة جميع الفواتير والمنتجات المرتبطة بها</p>
                         </div>
-                        <div class="d-flex gap-2">
+                        {{-- <div class="d-flex gap-2">
                             <span class="badge bg-white text-primary p-3 fs-6">
                                 <i class="bi bi-file-text me-2"></i>
                                 إجمالي الفواتير: {{ $trucks->total() }}
                             </span>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
