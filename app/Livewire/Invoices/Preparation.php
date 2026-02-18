@@ -140,7 +140,7 @@ class Preparation extends Component
 
         $invoices = $query->orderBy('created_at', 'desc')->paginate($this->perPage);
 
-        return view('livewire.Invoices.Preparation', [
+        return view('livewire.invoices.Preparation', [
             'invoices' => $invoices,
         ]);
     }
