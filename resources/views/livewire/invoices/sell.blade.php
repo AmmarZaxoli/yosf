@@ -11,12 +11,12 @@
                                 عرض وإدارة جميع التراكات التي تم بيع فواتيرها
                             </p>
                         </div>
-                        {{-- <div class="d-flex gap-2">
+                        <div class="d-flex gap-2">
                             <span class="badge bg-white text-primary p-3 fs-6">
                                 <i class="bi bi-truck me-2"></i>
                                 إجمالي التراكات المباعة: {{ $trucks->total() }}
                             </span>
-                        </div> --}}
+                        </div>
                     </div>
                 </div>
             </div>
