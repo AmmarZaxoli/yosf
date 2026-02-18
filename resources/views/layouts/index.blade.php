@@ -59,49 +59,49 @@
             <div class="nav-group">
 
                 <li class="nav-item">
-                    <a class="nav-link {{ Route::is('create.invoices', 'invoices.show','invoices.Preparation','invoices.track','invoices.sell') ? '' : 'collapsed' }}"
+                    <a class="nav-link {{ Route::is('create.Invoices', 'Invoices.show','Invoices.Preparation','Invoices.track','Invoices.Sell') ? '' : 'collapsed' }}"
                         data-bs-toggle="collapse" href="#productsMenu" role="button"
-                        aria-expanded="{{ Route::is('create.invoices') ? 'true' : 'false' }}">
+                        aria-expanded="{{ Route::is('create.Invoices') ? 'true' : 'false' }}">
                         <span class="nav-icon"><i class="bi bi-box-seam"></i></span>
                         <span class="nav-text">إدارة الطلبات</span>
                         <span class="nav-arrow"><i class="bi bi-chevron-left"></i></span>
                     </a>
-                    <div class="collapse {{ Route::is('create.invoices', 'invoices.show', 'invoices.edit','invoices.Preparation','invoices.track','invoices.sell') ? 'show' : '' }}"
+                    <div class="collapse {{ Route::is('create.Invoices', 'Invoices.show', 'Invoices.edit','Invoices.Preparation','Invoices.track','Invoices.Sell') ? 'show' : '' }}"
                         id="productsMenu">
                         <ul class="submenu">
                             <li class="nav-item">
-                                <a class="nav-link {{ Route::is('create.invoices') ? 'active' : '' }}"
-                                    href="{{ route('create.invoices') }}">
+                                <a class="nav-link {{ Route::is('create.Invoices') ? 'active' : '' }}"
+                                    href="{{ route('create.Invoices') }}">
                                     <span class="nav-text">انشاء الطلبات</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {{ Route::is('invoices.show') ? 'active' : '' }}"
-                                    href="{{ route('invoices.show') }}">
+                                <a class="nav-link {{ Route::is('Invoices.show') ? 'active' : '' }}"
+                                    href="{{ route('Invoices.show') }}">
                                     <span class="nav-text">عرض الطلبيات</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {{ Route::is('invoices.Preparation') ? 'active' : '' }}"
-                                    href="{{ route('invoices.Preparation') }}">
+                                <a class="nav-link {{ Route::is('Invoices.Preparation') ? 'active' : '' }}"
+                                    href="{{ route('Invoices.Preparation') }}">
                                     <span class="nav-text"> مسح التراك على الفواتير </span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {{ Route::is('invoices.edit') ? 'active' : '' }}"
-                                    href="{{ route('invoices.edit') }}">
+                                <a class="nav-link {{ Route::is('Invoices.edit') ? 'active' : '' }}"
+                                    href="{{ route('Invoices.edit') }}">
                                     <span class="nav-text">تعديل الطلبات</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {{ Route::is('invoices.track') ? 'active' : '' }}"
-                                    href="{{ route('invoices.track') }}">
+                                <a class="nav-link {{ Route::is('Invoices.track') ? 'active' : '' }}"
+                                    href="{{ route('Invoices.track') }}">
                                     <span class="nav-text">تجهيز</span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {{ Route::is('invoices.sell') ? 'active' : '' }}"
-                                    href="{{ route('invoices.sell') }}">
+                                <a class="nav-link {{ Route::is('Invoices.Sell') ? 'active' : '' }}"
+                                    href="{{ route('Invoices.Sell') }}">
                                     <span class="nav-text">تم البيع</span>
                                 </a>
                             </li>
