@@ -78,14 +78,16 @@ class Sell extends Component
         InfoInvoice::findOrFail($id)->update([
             'status' => 0
         ]);
+
+        flash()->success('تم بنجاح');
     }
 
 
-   
+
     public function render()
     {
         $trucks = InfoInvoice::query()
-            ->where('status', 1) 
+            ->where('status', 1)
             ->select('info_invoices.*')
             ->selectSub(function ($query) {
                 $query->from('invoices')

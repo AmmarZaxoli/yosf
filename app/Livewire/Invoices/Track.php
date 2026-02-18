@@ -76,6 +76,8 @@ class Track extends Component
         InfoInvoice::findOrFail($id)->update([
             'status' => 1
         ]);
+
+        flash()->success('تم بنجاح');
     }
 
 
@@ -114,7 +116,7 @@ class Track extends Component
     public function render()
     {
         $trucks = InfoInvoice::query()
-            ->where('status', 0) 
+            ->where('status', 0)
             ->select('info_invoices.*')
             ->selectSub(function ($query) {
                 $query->from('invoices')
