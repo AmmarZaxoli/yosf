@@ -1,5 +1,5 @@
 @extends('layouts.index')
 
 @section('content')
-    <livewire:Invoices.sell />
+    <livewire:Invoices.Sell />
 @endsection

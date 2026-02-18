@@ -126,7 +126,7 @@ class Show extends Component
             $query->whereDate('today_date', $this->dateFilter);
         }
 
-        return view('livewire.invoices.show', [
+        return view('livewire.Invoices.show', [
             'invoices' => $query->orderBy('created_at', 'desc')->paginate(10),
         ]);
     }

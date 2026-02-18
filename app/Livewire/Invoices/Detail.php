@@ -62,6 +62,6 @@ class Detail extends Component
 
     public function render()
     {
-        return view('livewire.invoices.detail');
+        return view('livewire.Invoices.detail');
     }
 }

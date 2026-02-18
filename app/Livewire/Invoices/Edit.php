@@ -545,7 +545,7 @@ class Edit extends Component
             ->orderBy('created_at', 'desc')
             ->paginate($this->perPage);
 
-        return view('livewire.invoices.edit', [
+        return view('livewire.Invoices.edit', [
             'invoices' => $invoices
         ]);
     }

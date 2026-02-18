@@ -402,6 +402,6 @@ class Insert extends Component
         $this->images = $this->images ?? [];
         $this->temp_images = $this->temp_images ?? [];
 
-        return view('livewire.invoices.insert');
+        return view('livewire.Invoices.insert');
     }
 }

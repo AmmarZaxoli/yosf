@@ -99,7 +99,7 @@ class Sell extends Component
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
 
-        return view('livewire.invoices.sell', [
+        return view('livewire.Invoices.Sell', [
             'trucks' => $trucks,
         ]);
     }

@@ -128,7 +128,7 @@ class Track extends Component
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
 
-        return view('livewire.invoices.track', [
+        return view('livewire.Invoices.track', [
             'trucks' => $trucks,
         ]);
     }
