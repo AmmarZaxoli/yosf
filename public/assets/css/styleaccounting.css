@@ -1,0 +1,253 @@
+ :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #6c757d;
+            --success: #4cc9a4;
+            --danger: #f72585;
+            --warning: #f8961e;
+            --info: #4895ef;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --purple: #7209b7;
+            --card-shadow: 0 8px 26px -4px rgba(20, 20, 20, 0.15);
+            --card-radius: 16px;
+            --transition: all 0.3s ease;
+        }
+*{
+    font-size: 18px;
+}
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding-top: 1rem;
+        }
+
+        .page-header h1 {
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 2.2rem;
+        }
+
+        .page-header p {
+            color: var(--secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Search Card */
+        .search-card {
+            background: #fff;
+            border-radius: var(--card-radius);
+            box-shadow: var(--card-shadow);
+            margin-bottom: 2.5rem;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .search-card:hover {
+            box-shadow: 0 12px 30px -6px rgba(20, 20, 20, 0.2);
+        }
+
+        .search-card .card-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 1.2rem 1.5rem;
+            border-radius: var(--card-radius) var(--card-radius) 0 0;
+        }
+
+        .search-card .card-body {
+            padding: 1.8rem;
+        }
+
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: #444;
+        }
+
+        .form-control {
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 0.6rem 1rem;
+            transition: var(--transition);
+            font-size: 18px;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+        }
+
+        /* Buttons */
+        .btn-gradient {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            margin-bottom: 3px;
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 0.8rem;
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .btn-gradient:hover {
+            background: linear-gradient(135deg, var(--primary-dark), #2a48b5);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(67, 97, 238, 0.25);
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: var(--card-radius);
+            padding: 1.8rem;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px -6px rgba(20, 20, 20, 0.2);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 4px;
+        }
+
+        .sales::before {
+            background: linear-gradient(90deg, var(--info), #2a6dd4);
+        }
+
+        .discount::before {
+            background: linear-gradient(90deg, var(--warning), #e07a00);
+        }
+
+        .profit::before {
+            background: linear-gradient(90deg, var(--success), #3da389);
+        }
+
+        .expenses::before {
+            background: linear-gradient(90deg, var(--danger), #d11472);
+        }
+
+        .net-profit::before {
+            background: linear-gradient(90deg, var(--purple), #5a0892);
+        }
+
+        .cart::before {
+            background: linear-gradient(90deg, #ff6b6b, #f06595);
+        }
+
+        /* New cart color */
+
+        .stat-icon {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            display: inline-block;
+            padding: 0.8rem;
+            border-radius: 12px;
+        }
+
+        .sales .stat-icon {
+            color: var(--info);
+            background: rgba(72, 149, 239, 0.15);
+        }
+
+        .discount .stat-icon {
+            color: var(--warning);
+            background: rgba(248, 150, 30, 0.15);
+        }
+
+        .profit .stat-icon {
+            color: var(--success);
+            background: rgba(76, 201, 164, 0.15);
+        }
+
+        .expenses .stat-icon {
+            color: var(--danger);
+            background: rgba(247, 37, 133, 0.15);
+        }
+
+        .net-profit .stat-icon {
+            color: var(--purple);
+            background: rgba(114, 9, 183, 0.15);
+        }
+
+        .cart .stat-icon {
+            color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.15);
+        }
+
+        /* New cart icon color */
+
+        /* Title & Number Colors */
+        .sales h6,
+        .sales h3 {
+            color: var(--info);
+        }
+
+        .discount h6,
+        .discount h3 {
+            color: var(--warning);
+        }
+
+        .profit h6,
+        .profit h3 {
+            color: var(--success);
+        }
+
+        .expenses h6,
+        .expenses h3 {
+            color: var(--danger);
+        }
+
+        .net-profit h6,
+        .net-profit h3 {
+            color: var(--purple);
+        }
+
+        .cart h6,
+        .cart h3 {
+            color: #ff6b6b;
+        }
+
+        /* Cart title color */
+
+        .stat-card h6 {
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card h3 {
+            font-weight: 800;
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            .container-fluid {
+                padding: 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-card .card-body {
+                padding: 1.5rem;
+            }
+        }
