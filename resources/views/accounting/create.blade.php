@@ -2,6 +2,6 @@
 
 @section('content')
     
-        <livewire:accounts.insert/>
+        <livewire:accounting.create/>
    
 @endsection

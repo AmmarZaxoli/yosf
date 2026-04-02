@@ -26,7 +26,7 @@ class Insert extends Component
     public $namecompany = ''; // Company name
     public $total_price = 0;
     public $link = '';
-    public $productprice = 0;
+    public $productprice;
     public $temp_images = [];
     public $images = [];
     public $quantity = 1;
@@ -84,7 +84,7 @@ class Insert extends Component
             'id_truck' => $this->customer_fields_disabled ? '' : 'nullable|string|min:3',
             'productprice' => 'required|numeric|min:0.01',
             'quantity' => 'required|integer|min:1',
-            'delivery_days' => 'required|integer|min:1',
+            // 'delivery_days' => 'required|integer|min:1',
             'today_date' => 'required|date',
             'link' => 'nullable|url|max:5000',
             'temp_images.*' => 'nullable|image|max:2048',
@@ -268,14 +268,14 @@ class Insert extends Component
 
             // Create customer record with both dates
             if ($this->namecustomer || $this->phone || $this->address) {
-               $customer = Customer::create([
-    'name' => $this->namecustomer,
-    'phone' => $this->phone,
-    'address' => $this->address,
-    'date_order' => $this->orders[0]['today_date'],
-    'delivery_date' => $this->orders[0]['delivery_date'],
-    'invoice_id' => $invoice->id,
-]);
+                $customer = Customer::create([
+                    'name' => $this->namecustomer,
+                    'phone' => $this->phone,
+                    'address' => $this->address,
+                    'date_order' => $this->orders[0]['today_date'],
+                    'delivery_date' => $this->orders[0]['delivery_date'],
+                    'invoice_id' => $invoice->id,
+                ]);
             }
 
             // Create invoice items from orders
@@ -317,7 +317,7 @@ class Insert extends Component
     private function resetOrderFields()
     {
         $this->link = '';
-        $this->productprice = 0;
+        $this->productprice="";
         $this->images = [];
         $this->temp_images = [];
         $this->quantity = 1;

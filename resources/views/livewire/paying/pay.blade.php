@@ -49,7 +49,7 @@
 
         {{-- Summary Cards --}}
         <div class="row g-3 mb-4">
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="summary-card">
                     <div class="summary-icon bg-primary">
                         <i class="fas fa-file-invoice"></i>
@@ -61,7 +61,7 @@
                 </div>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="summary-card">
                     <div class="summary-icon bg-warning">
                         <i class="fas fa-clock"></i>
@@ -73,7 +73,7 @@
                 </div>
             </div>
 
-            <div class="col-md-3">
+            {{-- <div class="col-md-3">
                 <div class="summary-card">
                     <div class="summary-icon bg-success">
                         <i class="fas fa-check-circle"></i>
@@ -83,9 +83,9 @@
                         <span class="summary-value">0</span>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="summary-card">
                     <div class="summary-icon bg-info">
                         <i class="fas fa-money-bill-wave"></i>

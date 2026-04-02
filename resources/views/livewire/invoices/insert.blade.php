@@ -53,14 +53,24 @@
                                     <label class="field-label">
                                         <i class="fas fa-building me-1"></i> اسم الشركة
                                     </label>
-                                    <input type="text"
-class="field-input @error('namecompany') is-invalid @enderror"
-wire:model.live="namecompany"
-placeholder="اسم الشركة"
-@if ($customer_fields_disabled) disabled @endif>
+
+                                    <input type="text" list="company-options"
+                                        class="field-input @error('namecompany') is-invalid @enderror"
+                                        wire:model.live="namecompany" placeholder="اسم الشركة"
+                                        @if ($customer_fields_disabled) disabled @endif>
+
+                                    <datalist id="company-options">
+                                        <option value="Shein">
+                                        <option value="Taobao">
+                                        <option value="Pinduoduo">
+                                        <option value="1688">
+                                    </datalist>
+
                                     @error('namecompany')
-                                        <div class="field-error"><i class="fas fa-exclamation-circle me-1"></i>
-                                            {{ $message }}</div>
+                                        <div class="field-error">
+                                            <i class="fas fa-exclamation-circle me-1"></i>
+                                            {{ $message }}
+                                        </div>
                                     @enderror
                                 </div>
 
@@ -70,10 +80,9 @@ placeholder="اسم الشركة"
                                         <i class="fas fa-user me-1"></i> اسم العميل <span class="req">*</span>
                                     </label>
                                     <input type="text"
-class="field-input @error('namecustomer') is-invalid @enderror"
-wire:model="namecustomer"
-placeholder="أدخل اسم العميل"
-@if ($customer_fields_disabled) disabled @endif>
+                                        class="field-input @error('namecustomer') is-invalid @enderror"
+                                        wire:model="namecustomer" placeholder="أدخل اسم العميل"
+                                        @if ($customer_fields_disabled) disabled @endif>
                                     @error('namecustomer')
                                         <div class="field-error"><i class="fas fa-exclamation-circle me-1"></i>
                                             {{ $message }}</div>
@@ -86,7 +95,8 @@ placeholder="أدخل اسم العميل"
                                         <i class="fas fa-phone me-1"></i> رقم الموبايل <span class="req">*</span>
                                     </label>
                                     <input type="text" class="field-input @error('phone') is-invalid @enderror"
-                                        wire:model="phone" placeholder="أدخل رقم الموبايل" @if ($customer_fields_disabled) disabled @endif>
+                                        wire:model="phone" placeholder="أدخل رقم الموبايل"
+                                        @if ($customer_fields_disabled) disabled @endif>
                                     @error('phone')
                                         <div class="field-error"><i class="fas fa-exclamation-circle me-1"></i>
                                             {{ $message }}</div>
@@ -99,7 +109,8 @@ placeholder="أدخل اسم العميل"
                                         <i class="fas fa-map-marker-alt me-1"></i> العنوان <span class="req">*</span>
                                     </label>
                                     <input type="text" class="field-input @error('address') is-invalid @enderror"
-                                        wire:model="address" placeholder="أدخل العنوان الكامل" @if ($customer_fields_disabled) disabled @endif>
+                                        wire:model="address" placeholder="أدخل العنوان الكامل"
+                                        @if ($customer_fields_disabled) disabled @endif>
                                     @error('address')
                                         <div class="field-error"><i class="fas fa-exclamation-circle me-1"></i>
                                             {{ $message }}</div>
@@ -112,7 +123,8 @@ placeholder="أدخل اسم العميل"
                                         <i class="fas fa-truck me-1"></i> رقم تراك <span class="req">*</span>
                                     </label>
                                     <input type="text" class="field-input @error('id_truck') is-invalid @enderror"
-                                        wire:model.live="id_truck" placeholder="أدخل رقم التراك" @if ($customer_fields_disabled) disabled @endif>
+                                        wire:model.live="id_truck" placeholder="أدخل رقم التراك"
+                                        @if ($customer_fields_disabled) disabled @endif>
                                     @error('id_truck')
                                         <div class="field-error"><i class="fas fa-exclamation-circle me-1"></i>
                                             {{ $message }}</div>
@@ -156,10 +168,13 @@ placeholder="أدخل اسم العميل"
                                         <span class="optional-tag">اختياري</span>
                                     </label>
                                     <div class="link-input-group">
-                                        <input type="url" class="field-input link-field @error('link') is-invalid @enderror"
-                                            wire:model.live="link" placeholder="https://example.com/product" id="link-input">
+                                        <input type="url"
+                                            class="field-input link-field @error('link') is-invalid @enderror"
+                                            wire:model.live="link" placeholder="https://example.com/product"
+                                            id="link-input">
                                         <div class="link-button-container">
-                                            <button type="button" class="btn-paste-link" onclick="pasteFromClipboard()" title="لصق من الحافظة">
+                                            <button type="button" class="btn-paste-link"
+                                                onclick="pasteFromClipboard()" title="لصق من الحافظة">
                                                 <i class="fas fa-paste"></i>
                                             </button>
                                         </div>
@@ -177,7 +192,7 @@ placeholder="أدخل اسم العميل"
                                     </label>
                                     <input type="number" step="250"
                                         class="field-input @error('productprice') is-invalid @enderror"
-                                        wire:model.live="productprice" placeholder="0.00">
+                                        wire:model.live="productprice">
                                     @error('productprice')
                                         <div class="field-error"><i class="fas fa-exclamation-circle me-1"></i>
                                             {{ $message }}</div>
@@ -206,16 +221,16 @@ placeholder="أدخل اسم العميل"
                                         <div class="row align-items-center">
                                             <div class="col-md-8">
                                                 <input type="file" wire:model="temp_images" multiple
-                                                    class="form-control @error('temp_images.*') is-invalid @enderror" 
-                                                    @if (count($images) >= 6) disabled @endif
-                                                    accept="image/*"
+                                                    class="form-control @error('temp_images.*') is-invalid @enderror"
+                                                    @if (count($images) >= 6) disabled @endif accept="image/*"
                                                     wire:loading.attr="disabled">
                                                 <small class="text-muted mt-1 d-block">
                                                     <i class="fas fa-info-circle me-1"></i>
                                                     الحد الأقصى 6 صور، 2 ميجابايت لكل صورة
                                                 </small>
                                                 <div wire:loading wire:target="temp_images" class="mt-2">
-                                                    <div class="spinner-border spinner-border-sm text-primary" role="status">
+                                                    <div class="spinner-border spinner-border-sm text-primary"
+                                                        role="status">
                                                         <span class="visually-hidden">جاري التحميل...</span>
                                                     </div>
                                                     <small class="text-primary me-2">جاري معالجة الصور...</small>
@@ -238,7 +253,8 @@ placeholder="أدخل اسم العميل"
 
                                         @if (count($images) >= 6)
                                             <div class="alert alert-warning mt-2 mb-0 py-2">
-                                                <i class="fas fa-exclamation-triangle me-1"></i> لقد وصلت إلى الحد الأقصى 6
+                                                <i class="fas fa-exclamation-triangle me-1"></i> لقد وصلت إلى الحد
+                                                الأقصى 6
                                                 صور
                                             </div>
                                         @endif
@@ -252,9 +268,11 @@ placeholder="أدخل اسم العميل"
                                                 @foreach ($images as $index => $image)
                                                     <div class="preview-thumb preview-thumb-selected">
                                                         @if (is_string($image))
-                                                            <img src="{{ asset('storage/' . $image) }}" class="thumb-img" loading="lazy">
+                                                            <img src="{{ asset('storage/' . $image) }}"
+                                                                class="thumb-img" loading="lazy">
                                                         @else
-                                                            <img src="{{ $image->temporaryUrl() }}" class="thumb-img" loading="lazy">
+                                                            <img src="{{ $image->temporaryUrl() }}" class="thumb-img"
+                                                                loading="lazy">
                                                         @endif
                                                         <button type="button" class="thumb-remove"
                                                             wire:click="removeImage({{ $index }})">
@@ -271,12 +289,13 @@ placeholder="أدخل اسم العميل"
                                 {{-- Date Fields --}}
                                 <div class="col-md-4">
                                     <label class="field-label">
-                                        <i class="fas fa-calendar-day me-1"></i> تاريخ اليوم <span class="req">*</span>
+                                        <i class="fas fa-calendar-day me-1"></i> تاريخ اليوم <span
+                                            class="req">*</span>
                                     </label>
-                                   <input type="date"
-class="field-input @error('today_date') is-invalid @enderror"
-wire:model.live="today_date"
-@if ($customer_fields_disabled) disabled @endif>
+                                    <input type="date"
+                                        class="field-input @error('today_date') is-invalid @enderror"
+                                        wire:model.live="today_date"
+                                        @if ($customer_fields_disabled) disabled @endif>
                                     @error('today_date')
                                         <div class="field-error"><i class="fas fa-exclamation-circle me-1"></i>
                                             {{ $message }}</div>
@@ -286,27 +305,27 @@ wire:model.live="today_date"
                                 {{-- Delivery Days --}}
                                 <div class="col-md-4">
                                     <label class="field-label">
-                                        <i class="fas fa-clock me-1"></i> مدة التوصيل (أيام) <span class="req">*</span>
+                                        <i class="fas fa-clock me-1"></i> مدة التوصيل (أيام) <span
+                                            class="req">*</span>
                                     </label>
-                                   <div class="combined-input-group">
+                                    <div class="combined-input-group">
 
-<input type="number"
-class="field-input combined-field @error('delivery_days') is-invalid @enderror"
-wire:model.live="delivery_days"
-list="duration-options"
-placeholder="اختر أو اكتب المدة"
-min="1"
-@if ($customer_fields_disabled) disabled @endif>
+                                        <input type="number"
+                                            class="field-input combined-field @error('delivery_days') is-invalid @enderror"
+                                            wire:model.live="delivery_days" list="duration-options"
+                                            placeholder="اختر أو اكتب المدة" min="1"
+                                            @if ($customer_fields_disabled) disabled @endif>
 
-<datalist id="duration-options">
-    <option value="15">15 يوم</option>
-    <option value="18">18 يوم</option>
-    <option value="20">20 يوم</option>
-</datalist>
+                                        <datalist id="duration-options">
+                                            <option value="15">15 يوم</option>
+                                            <option value="18">18 يوم</option>
+                                            <option value="20">20 يوم</option>
+                                        </datalist>
 
-</div>
+                                    </div>
                                     <small class="text-muted">
-                                        <i class="fas fa-edit me-1"></i> يمكنك الاختيار من القائمة أو كتابة الرقم يدوياً
+                                        <i class="fas fa-edit me-1"></i> يمكنك الاختيار من القائمة أو كتابة الرقم
+                                        يدوياً
                                     </small>
                                     @error('delivery_days')
                                         <div class="field-error"><i class="fas fa-exclamation-circle me-1"></i>
@@ -320,10 +339,9 @@ min="1"
                                         <i class="fas fa-truck me-1"></i> تاريخ التوصيل <span class="req">*</span>
                                     </label>
                                     <input type="date"
-class="field-input @error('delivery_date') is-invalid @enderror"
-wire:model="delivery_date"
-readonly
-@if ($customer_fields_disabled) disabled @endif>                         
+                                        class="field-input @error('delivery_date') is-invalid @enderror"
+                                        wire:model="delivery_date" readonly
+                                        @if ($customer_fields_disabled) disabled @endif>
                                     @error('delivery_date')
                                         <div class="field-error"><i class="fas fa-exclamation-circle me-1"></i>
                                             {{ $message }}</div>
@@ -389,7 +407,8 @@ readonly
                                                     <td class="fw-bold">{{ $index + 1 }}</td>
                                                     <td>
                                                         @if ($order['link'] ?? null)
-                                                            <a href="{{ $order['link'] }}" target="_blank" class="table-link">
+                                                            <a href="{{ $order['link'] }}" target="_blank"
+                                                                class="table-link">
                                                                 <i class="fas fa-external-link-alt"></i>
                                                             </a>
                                                         @else
@@ -402,9 +421,11 @@ readonly
                                                             <div class="d-flex gap-1">
                                                                 @foreach (array_slice($order['images'], 0, 3) as $image)
                                                                     @if (is_string($image))
-                                                                        <img src="{{ asset('storage/' . $image) }}" class="table-thumb" loading="lazy">
+                                                                        <img src="{{ asset('storage/' . $image) }}"
+                                                                            class="table-thumb" loading="lazy">
                                                                     @else
-                                                                        <img src="{{ $image->temporaryUrl() }}" class="table-thumb" loading="lazy">
+                                                                        <img src="{{ $image->temporaryUrl() }}"
+                                                                            class="table-thumb" loading="lazy">
                                                                     @endif
                                                                 @endforeach
                                                                 @if (count($order['images']) > 3)
@@ -417,7 +438,8 @@ readonly
                                                     <td>{{ number_format($order['price'], 2) }}</td>
                                                     <td>{{ $order['quantity'] }}</td>
                                                     <td class="fw-bold text-success">
-                                                        {{ number_format($order['price'] * $order['quantity'], 2) }}</td>
+                                                        {{ number_format($order['price'] * $order['quantity'], 2) }}
+                                                    </td>
                                                     <td>{{ $order['delivery_days'] ?? '-' }} يوم</td>
                                                     <td>{{ $order['today_date'] ?? now()->format('Y-m-d') }}</td>
                                                     <td>{{ $order['delivery_date'] ?? '-' }}</td>
@@ -468,7 +490,8 @@ readonly
 
                                 <div class="col-md-8 mb-3">
                                     <div class="d-flex gap-3 justify-content-md-end mt-3">
-                                        <button type="submit" class="btn-save" wire:loading.attr="disabled" @if (count($orders) === 0) disabled @endif>
+                                        <button type="submit" class="btn-save" wire:loading.attr="disabled"
+                                            @if (count($orders) === 0) disabled @endif>
                                             <span wire:loading.remove wire:target="saveAll">
                                                 <i class="fas fa-save me-2"></i> حفظ الفاتورة
                                             </span>

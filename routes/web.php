@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\Expenses\ManageExpenses;
 use Illuminate\Support\Facades\Route;
 
 
@@ -19,3 +20,5 @@ route::view('/drivers/create', 'drivers.create')->name('drivers.create');
 route::view('/accounts/create', 'accounts.create')->name('accounts.create');
 route::view('/paying/create', 'paying.create')->name('paying.create');
 route::view('/paying/returnpay', 'paying.returnpay')->name('paying.returnpay');
+route::view('/accounting/create', 'accounting.create')->name('accounting.create');
+route::view('/expenses/create', 'expenses.create')->name('expenses.create');

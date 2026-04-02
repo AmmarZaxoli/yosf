@@ -259,30 +259,7 @@
             font-size: 14px;
         }
 
-        /* Notification */
-        .notification-btn {
-            position: relative;
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--input-bg);
-            cursor: pointer;
-            transition: var(--transition);
-            border: none;
-        }
 
-        .notification-btn:hover {
-            background: var(--hover-bg);
-            transform: scale(1.05);
-        }
-
-        .notification-btn i {
-            font-size: 18px;
-            color: var(--text-secondary);
-        }
 
         .notification-badge {
             position: absolute;
@@ -934,7 +911,9 @@
                         </a>
                     </li>
                     <li class="main-nav-item">
-                        <a href="#" class="main-nav-link">
+                        <a href="{{ route('accounting.create') }}"
+                            class="main-nav-link {{ request()->routeIs('accounting.create') ? 'active' : '' }}"
+                            id="aa">
                             <i class="fas fa-chart-line"></i>
                             <span>التقارير</span>
                         </a>
@@ -945,15 +924,15 @@
                             <span>الإعدادات</span>
                         </a>
                     </li>
+
+                    <a href="{{ route('expenses.create') }}" class="btn btn-primary">
+                        <i class="fas fa-coins"></i> Manage Expenses
+                    </a>
                 </ul>
 
                 <!-- Right Actions -->
                 <div class="nav-actions">
-                    <!-- Search -->
-                    <div class="search-box">
-                        <i class="fas fa-search search-icon"></i>
-                        <input type="text" class="search-input" placeholder="بحث...">
-                    </div>
+
 
                     <!-- Dark Mode Toggle -->
                     <button class="dark-toggle" onclick="toggleDarkMode()" data-tooltip="الوضع الليلي"
@@ -962,11 +941,7 @@
                         <i class="fas fa-moon icon-moon"></i>
                     </button>
 
-                    <!-- Notifications -->
-                    <div class="notification-btn" data-tooltip="الإشعارات">
-                        <i class="far fa-bell"></i>
-                        <span class="notification-badge"></span>
-                    </div>
+
 
                     <!-- User Profile -->
                     <div class="user-profile" onclick="toggleUserDropdown()">
@@ -1015,21 +990,21 @@
                     class="child-link {{ request()->routeIs('Invoices.show') ? 'active' : '' }}">
                     <i class="fas fa-eye"></i>
                     <span>عرض الطلبيات</span>
-                    <span class="badge">24</span>
+                    {{-- <span class="badge">24</span> --}}
                 </a>
 
                 <a href="{{ route('Invoices.track') }}"
                     class="child-link {{ request()->routeIs('Invoices.track') ? 'active' : '' }}">
                     <i class="fas fa-box"></i>
                     <span>تجهيز</span>
-                    <span class="badge">12</span>
+                    {{-- <span class="badge">12</span> --}}
                 </a>
 
                 <a href="{{ route('Invoices.Sell') }}"
                     class="child-link {{ request()->routeIs('Invoices.Sell') ? 'active' : '' }}">
                     <i class="fas fa-check-circle"></i>
                     <span>تم البيع</span>
-                    <span class="badge">8</span>
+                    {{-- <span class="badge">8</span> --}}
                 </a>
             </div>
         </div>
@@ -1042,27 +1017,27 @@
                     <i class="fas fa-user-plus"></i>
                     <span>إضافة سائق جديد</span>
                 </a>
-    
+
             </div>
         </div>
         <!-- Paying Panel Content Template (FIXED: Added missing template) -->
         <div id="payingPanelTemplate">
-    <div class="child-links-list">
+            <div class="child-links-list">
 
-        <a href="{{ route('paying.create') }}"
-            class="child-link {{ request()->routeIs('paying.create') ? 'active' : '' }}">
-            <i class="fas fa-plus-circle"></i>
-            <span>دفع الديون</span>
-        </a>
+                <a href="{{ route('paying.create') }}"
+                    class="child-link {{ request()->routeIs('paying.create') ? 'active' : '' }}">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>دفع الديون</span>
+                </a>
 
-        <a href="{{ route('paying.returnpay') }}"
-            class="child-link {{ request()->routeIs('paying.returnpay') ? 'active' : '' }}">
-            <i class="fas fa-undo"></i>
-            <span>ارجاع الفواتير</span>
-        </a>
+                <a href="{{ route('paying.returnpay') }}"
+                    class="child-link {{ request()->routeIs('paying.returnpay') ? 'active' : '' }}">
+                    <i class="fas fa-undo"></i>
+                    <span>ارجاع الفواتير</span>
+                </a>
 
-    </div>
-</div>
+            </div>
+        </div>
 
         <!-- Accounts Panel Content Template -->
         <div id="accountsPanelTemplate">
@@ -1072,7 +1047,7 @@
                     <i class="fas fa-user-plus"></i>
                     <span>إضافة حساب جديد</span>
                 </a>
-                
+
             </div>
         </div>
     </div>
@@ -1099,7 +1074,7 @@
             }
         }
 
-        (function () {
+        (function() {
             if (localStorage.getItem('darkMode') === '1') {
                 document.body.classList.add('dark-mode');
                 const btn = document.getElementById('darkToggleBtn');
@@ -1110,7 +1085,9 @@
         /* ===== SIDE PANEL WITH DYNAMIC CONTENT ===== */
         let currentPanelType = 'orders';
 
-        function isMobile() { return window.innerWidth <= 768; }
+        function isMobile() {
+            return window.innerWidth <= 768;
+        }
 
         // Update panel based on current route
         function updatePanelFromRoute() {
@@ -1246,7 +1223,7 @@
         }
 
         // Handle clicks on child links
-        document.addEventListener('click', function (e) {
+        document.addEventListener('click', function(e) {
             const childLink = e.target.closest('.child-link');
             if (childLink) {
                 e.preventDefault();
@@ -1268,7 +1245,7 @@
         }
 
         // Close mobile menu when clicking outside
-        document.addEventListener('click', function (e) {
+        document.addEventListener('click', function(e) {
             const navMenu = document.getElementById('mainNavMenu');
             const toggleBtn = document.querySelector('.mobile-menu-toggle');
 
@@ -1280,7 +1257,7 @@
         });
 
         // Handle resize
-        window.addEventListener('resize', function () {
+        window.addEventListener('resize', function() {
             const panel = document.getElementById('sidePanel');
             const main = document.getElementById('mainContent');
 
@@ -1360,7 +1337,7 @@
             }
 
             setTimeout(() => {
-                const closeDropdown = function (e) {
+                const closeDropdown = function(e) {
                     if (!dropdown.contains(e.target) && !e.target.closest('.user-profile')) {
                         dropdown.remove();
                         document.removeEventListener('click', closeDropdown);
@@ -1370,30 +1347,7 @@
             }, 100);
         }
 
-        /* ===== NOTIFICATIONS ===== */
-        document.querySelector('.notification-btn')?.addEventListener('click', function () {
-            Swal.fire({
-                title: 'الإشعارات',
-                html: `
-                    <div style="text-align:right;max-height:300px;overflow-y:auto;">
-                        <div style="display:flex;align-items:center;gap:15px;padding:15px;border-bottom:1px solid #eee;">
-                            <i class="fas fa-user" style="color:#4361ee;"></i>
-                            <div><strong>مستخدم جديد</strong><p style="font-size:12px;color:#666;margin:5px 0 0;">قام بالتسجيل في النظام</p><small style="color:#999;">منذ 5 دقائق</small></div>
-                        </div>
-                        <div style="display:flex;align-items:center;gap:15px;padding:15px;border-bottom:1px solid #eee;">
-                            <i class="fas fa-shopping-cart" style="color:#06d6a0;"></i>
-                            <div><strong>طلب جديد</strong><p style="font-size:12px;color:#666;margin:5px 0 0;">تم إنشاء طلب جديد #12345</p><small style="color:#999;">منذ 10 دقائق</small></div>
-                        </div>
-                        <div style="display:flex;align-items:center;gap:15px;padding:15px;">
-                            <i class="fas fa-exclamation-triangle" style="color:#ffb703;"></i>
-                            <div><strong>تنبيه المخزون</strong><p style="font-size:12px;color:#666;margin:5px 0 0;">منتج XYZ على وشك النفاد</p><small style="color:#999;">منذ 15 دقيقة</small></div>
-                        </div>
-                    </div>`,
-                showConfirmButton: false,
-                showCloseButton: true,
-                background: 'white'
-            });
-        });
+
 
         /* ===== LIVEWIRE FLASH ===== */
         if (typeof Livewire !== 'undefined') {
@@ -1414,7 +1368,7 @@
         /* ===== SEARCH ===== */
         const searchInput = document.querySelector('.search-input');
         if (searchInput) {
-            searchInput.addEventListener('keyup', function (e) {
+            searchInput.addEventListener('keyup', function(e) {
                 if (e.key === 'Enter' && this.value.trim() !== '') {
                     Swal.fire({
                         title: 'بحث',
@@ -1428,7 +1382,7 @@
         }
 
         /* ===== KEYBOARD SHORTCUTS ===== */
-        document.addEventListener('keydown', function (e) {
+        document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 const panel = document.getElementById('sidePanel');
                 if (panel && panel.classList.contains('open')) {
@@ -1447,7 +1401,7 @@
         });
 
         // Initialize panel on load
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             updatePanelFromRoute();
         });
     </script>
