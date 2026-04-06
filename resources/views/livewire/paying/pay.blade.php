@@ -1,11 +1,11 @@
 <div>
     <div class="container-fluid py-4">
-        <div class="text-center my-4">
-            <div class="header-container d-inline-block">
-                <h3 class="header-title mb-1">الدفعات</h3>
+        <div class="invoice-page-header">
+            <div class="title-pill">
+                <i class="fas fa-file-alt"></i>
+                الدفعات
             </div>
         </div>
-
         {{-- Filters Section --}}
         <div class="filters-card">
             <div class="row g-3">
@@ -114,7 +114,8 @@
 
                 <div class="d-flex gap-2">
                     <!-- Change Delivery Date Button -->
-                    <button class="btn btn-warning px-4" style="border-radius: 16px; background: linear-gradient(135deg, #f97316, #fbbf24); border: none; color: white;" 
+                    <button class="btn btn-warning px-4"
+                        style="border-radius: 16px; background: linear-gradient(135deg, #f97316, #fbbf24); border: none; color: white;"
                         wire:click="openChangeDateModal" @disabled(count($selectedInvoices) === 0)>
                         <i class="fas fa-calendar-alt me-2"></i>
                         تغيير تاريخ التوصيل
@@ -215,9 +216,9 @@
                                 <td class="text-center">
                                     <span class="date-badge">
                                         @if($invoice->customer && $invoice->customer->delivery_date)
-                                            {{ $invoice->customer->delivery_date instanceof \Carbon\Carbon
-                                                ? $invoice->customer->delivery_date->format('Y-m-d')
-                                                : \Carbon\Carbon::parse($invoice->customer->delivery_date)->format('Y-m-d') }}
+                                                                    {{ $invoice->customer->delivery_date instanceof \Carbon\Carbon
+                                            ? $invoice->customer->delivery_date->format('Y-m-d')
+                                            : \Carbon\Carbon::parse($invoice->customer->delivery_date)->format('Y-m-d') }}
                                         @else
                                             —
                                         @endif
@@ -279,8 +280,10 @@
                                 <i class="fas fa-user-tie me-2"></i>
                                 تغيير السائق للفواتير المحددة
                             </h5>
-                            <button type="button" class="btn-close btn-close-white"
-                                wire:click="closeBulkDriverModal"></button>
+                            <button type="button" class="modal-close-btn" wire:click="closeBulkDriverModal">
+                                <i class="fas fa-times"></i>
+                            </button>
+
                         </div>
 
                         <div class="modal-body p-4">
@@ -302,8 +305,8 @@
                         </div>
 
                         <div class="modal-footer bg-light">
-                            <button type="button" class="btn btn-secondary" wire:click="closeBulkDriverModal">
-                                <i class="fas fa-times me-2"></i> إلغاء
+                            <button type="button" class="modal-close-btn" wire:click="closeBulkDriverModal">
+                                <i class="fas fa-times"></i>
                             </button>
                             <button type="button" class="btn btn-primary" wire:click="updateBulkDriver">
                                 <i class="fas fa-save me-2"></i> تحديث
@@ -325,8 +328,10 @@
                                 <i class="fas fa-calendar-alt me-2"></i>
                                 تغيير تاريخ التوصيل
                             </h5>
-                            <button type="button" class="btn-close btn-close-white"
-                                wire:click="closeChangeDateModal"></button>
+                            <button type="button" class="modal-close-btn" wire:click="closeChangeDateModal">
+                                <i class="fas fa-times"></i>
+                            </button>
+
                         </div>
 
                         <div class="modal-body p-4">
@@ -334,7 +339,7 @@
                                 <label class="form-label fw-bold">تاريخ التوصيل الجديد</label>
                                 <input type="date" class="form-control" wire:model="newDeliveryDate"
                                     style="border: 2px solid #e2e8f0; border-radius: 12px; padding: 12px; width: 100%;">
-                                @error('newDeliveryDate') 
+                                @error('newDeliveryDate')
                                     <span class="text-danger small mt-1 d-block">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -365,7 +370,7 @@
     <script>
         document.addEventListener('livewire:initialized', function () {
             console.log('Livewire initialized');
-            
+
             // Payment confirmation
             Livewire.on('showPaymentConfirmation', function () {
                 Swal.fire({
@@ -552,13 +557,11 @@
             background-color: rgba(16, 185, 129, 0.1);
         }
 
-        /* Disabled Checkbox */
         .form-check-input:disabled {
             opacity: 0.3;
             cursor: not-allowed;
         }
 
-        /* Filters */
         .filters-card {
             background: white;
             border-radius: 24px;
@@ -630,6 +633,31 @@
             align-items: center;
             justify-content: center;
             color: white;
+            font-size: 20px;
+        }
+
+        .modal-close-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close-btn:hover {
+            background: #fee2e2;
+            color: #ef4444;
+            border-color: #fecaca;
+            transform: rotate(90deg);
+        }
+
+        .modal-close-btn i {
             font-size: 20px;
         }
 

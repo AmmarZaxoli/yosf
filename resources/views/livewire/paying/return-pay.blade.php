@@ -1,9 +1,9 @@
 <div>
     <div class="container-fluid py-4">
-        <!-- Header -->
-        <div class="text-center my-4">
-            <div class="header-container d-inline-block">
-                <h3 class="header-title mb-1">ارجاع الفواتير</h3>
+        <div class="invoice-page-header">
+            <div class="title-pill">
+                <i class="fas fa-file-alt"></i>
+                ارجاع الفواتير
             </div>
         </div>
 
@@ -95,7 +95,8 @@
 
                 <div class="d-flex gap-2">
                     <!-- Change Delivery Date Button -->
-                    <button class="btn btn-warning px-4" style="border-radius: 16px; background: linear-gradient(135deg, #f97316, #fbbf24); border: none; color: white;" 
+                    <button class="btn btn-warning px-4"
+                        style="border-radius: 16px; background: linear-gradient(135deg, #f97316, #fbbf24); border: none; color: white;"
                         wire:click="openChangeDateModal" @disabled(count($selectedInvoices) === 0)>
                         <i class="fas fa-calendar-alt me-2"></i>
                         تغيير تاريخ التوصيل
@@ -165,9 +166,7 @@
                         @forelse($invoices as $index => $invoice)
                             <tr>
                                 <td class="text-center">
-                                    <input type="checkbox" 
-                                        wire:model.live="selectedInvoices" 
-                                        value="{{ $invoice->id }}"
+                                    <input type="checkbox" wire:model.live="selectedInvoices" value="{{ $invoice->id }}"
                                         class="form-check-input">
                                 </td>
                                 <td class="text-center">
@@ -194,9 +193,9 @@
                                 <td class="text-center">
                                     <span class="date-badge">
                                         @if($invoice->customer && $invoice->customer->delivery_date)
-                                            {{ $invoice->customer->delivery_date instanceof \Carbon\Carbon
-                                                ? $invoice->customer->delivery_date->format('Y-m-d')
-                                                : \Carbon\Carbon::parse($invoice->customer->delivery_date)->format('Y-m-d') }}
+                                                                    {{ $invoice->customer->delivery_date instanceof \Carbon\Carbon
+                                            ? $invoice->customer->delivery_date->format('Y-m-d')
+                                            : \Carbon\Carbon::parse($invoice->customer->delivery_date)->format('Y-m-d') }}
                                         @else
                                             —
                                         @endif
@@ -256,7 +255,7 @@
                                 <label class="form-label fw-bold">تاريخ التوصيل الجديد</label>
                                 <input type="date" class="form-control" wire:model="newDeliveryDate"
                                     style="border: 2px solid #e2e8f0; border-radius: 12px; padding: 12px; width: 100%;">
-                                @error('newDeliveryDate') 
+                                @error('newDeliveryDate')
                                     <span class="text-danger small mt-1 d-block">{{ $message }}</span>
                                 @enderror
                             </div>
