@@ -1,5 +1,4 @@
-<div>
-    <div>
+<div class="invoice-responsive-wrap">
     <div class="invoice-page-header">
         <div class="title-pill">
             <i class="fas fa-file-alt"></i>
@@ -12,18 +11,18 @@
 
         {{-- SECTION 1: INVOICE INFO --}}
         <div class="form-card mb-4">
-            <div class="modal-header">
-                <div class="d-flex align-items-center gap-2">
+            <div class="modal-header responsive-header">
+                <div class="d-flex align-items-center gap-2 header-main">
                     <i class="fas fa-file-alt fs-5"></i>
                     <div>
                         <h5 class="mb-0">بيانات الفاتورة</h5>
                         <small>معلومات العميل والفاتورة الأساسية</small>
                     </div>
                 </div>
-                <span class="badge bg-light text-dark ms-auto">Invoice Info</span>
+                <span class="badge bg-light text-dark ms-auto header-badge">Invoice Info</span>
             </div>
 
-            <div class="p-4">
+            <div class="p-4 form-card-body">
                 <div class="invoice-grid cols-3">
 
                     {{-- Invoice Number --}}
@@ -31,7 +30,7 @@
                         <label class="form-label">
                             <i class="fas fa-hashtag me-1"></i> رقم الفاتورة
                         </label>
-                        <div class="input-group">
+                        <div class="input-group responsive-input-group">
                             <input type="text"
                                 class="form-control @error('invoice_number') is-invalid @enderror"
                                 wire:model="invoice_number" readonly placeholder="سيتم توليده تلقائياً">
@@ -136,21 +135,21 @@
 
         {{-- SECTION 2: PRODUCT INFO --}}
         <div class="form-card mb-4">
-            <div class="modal-header">
-                <div class="d-flex align-items-center gap-2">
+            <div class="modal-header responsive-header">
+                <div class="d-flex align-items-center gap-2 header-main">
                     <i class="fas fa-box-open fs-5"></i>
                     <div>
                         <h5 class="mb-0">بيانات المنتج</h5>
                         <small>أضف منتجاً واحداً أو أكثر إلى الفاتورة</small>
                     </div>
                 </div>
-                <div class="ms-auto d-flex align-items-center gap-2">
+                <div class="ms-auto d-flex align-items-center gap-2 header-actions">
                     <span class="badge bg-light text-dark">{{ count($orders) }} منتج</span>
                 </div>
             </div>
 
-            <div class="p-4">
-                <div class="invoice-grid cols-1" style="gap:16px">
+            <div class="p-4 form-card-body">
+                <div class="invoice-grid cols-1 section-gap">
 
                     {{-- Link --}}
                     <div>
@@ -158,20 +157,20 @@
                             <i class="fas fa-link me-1"></i> رابط المنتج
                             <span class="img-count-badge ms-1">اختياري</span>
                         </label>
-                       <div class="input-group">
-    <input type="url"
-        class="form-control @error('link') is-invalid @enderror"
-        wire:model.live="link"
-        placeholder="https://example.com/product"
-        id="link-input">
+                        <div class="input-group responsive-input-group">
+                            <input type="url"
+                                class="form-control @error('link') is-invalid @enderror"
+                                wire:model.live="link"
+                                placeholder="https://example.com/product"
+                                id="link-input">
 
-    <button type="button"
-        class="btn paste-btn"
-        onclick="pasteFromClipboard()"
-        title="لصق من الحافظة">
-        <i class="fas fa-paste"></i>
-    </button>
-</div>
+                            <button type="button"
+                                class="btn paste-btn"
+                                onclick="pasteFromClipboard()"
+                                title="لصق من الحافظة">
+                                <i class="fas fa-paste"></i>
+                            </button>
+                        </div>
                         @error('link')
                             <div class="error-message"><i class="fas fa-exclamation-circle"></i> {{ $message }}</div>
                         @enderror
@@ -209,33 +208,33 @@
                         </label>
 
                         <div class="upload-zone">
-    <input type="file"
-        wire:model.change="temp_images"
-        multiple
-        class="form-control @error('temp_images.*') is-invalid @enderror"
-        @if(count($images) >= 6) disabled @endif
-        accept="image/*"
-        wire:loading.attr="disabled"
-        wire:target="temp_images">
+                            <input type="file"
+                                wire:model.change="temp_images"
+                                multiple
+                                class="form-control @error('temp_images.*') is-invalid @enderror"
+                                @if(count($images) >= 6) disabled @endif
+                                accept="image/*"
+                                wire:loading.attr="disabled"
+                                wire:target="temp_images">
 
-    <div class="d-flex align-items-center justify-content-between mt-2 flex-wrap gap-2">
-        <small class="text-muted">
-            <i class="fas fa-info-circle me-1"></i>
-            الحد الأقصى 6 صور · 2 ميجابايت لكل صورة
-        </small>
+                            <div class="d-flex align-items-center justify-content-between mt-2 flex-wrap gap-2 upload-meta">
+                                <small class="text-muted">
+                                    <i class="fas fa-info-circle me-1"></i>
+                                    الحد الأقصى 6 صور · 2 ميجابايت لكل صورة
+                                </small>
 
-        @if(count($images) > 0)
-            <button type="button" class="btn btn-sm btn-outline-danger" wire:click="clearAllImages">
-                <i class="fas fa-trash me-1"></i> مسح الكل
-            </button>
-        @endif
-    </div>
+                                @if(count($images) > 0)
+                                    <button type="button" class="btn btn-sm btn-outline-danger" wire:click="clearAllImages">
+                                        <i class="fas fa-trash me-1"></i> مسح الكل
+                                    </button>
+                                @endif
+                            </div>
 
-    <div wire:loading.flex wire:target="temp_images" class="mt-2 align-items-center gap-2">
-        <div class="spinner-border spinner-border-sm text-primary"></div>
-        <small class="text-primary">جاري معالجة الصور...</small>
-    </div>
-</div>
+                            <div wire:loading.flex wire:target="temp_images" class="mt-2 align-items-center gap-2">
+                                <div class="spinner-border spinner-border-sm text-primary"></div>
+                                <small class="text-primary">جاري معالجة الصور...</small>
+                            </div>
+                        </div>
 
                         @error('temp_images.*')
                             <div class="error-message mt-1"><i class="fas fa-exclamation-circle"></i> {{ $message }}</div>
@@ -295,7 +294,7 @@
                                 <option value="18">18 يوم</option>
                                 <option value="20">20 يوم</option>
                             </datalist>
-                            <small class="text-muted" style="font-size:11px">يمكنك الاختيار أو الكتابة يدوياً</small>
+                            <small class="text-muted helper-text">يمكنك الاختيار أو الكتابة يدوياً</small>
                             @error('delivery_days')
                                 <div class="error-message"><i class="fas fa-exclamation-circle"></i> {{ $message }}</div>
                             @enderror
@@ -316,7 +315,7 @@
                     </div>
 
                     {{-- Add Product Button --}}
-                    <button type="button" class="btn-add-product" wire:click="validateAndAddOrder" wire:loading.attr="disabled">
+                    <button type="button" class="btn-add-product full-mobile-btn" wire:click="validateAndAddOrder" wire:loading.attr="disabled">
                         <span wire:loading.remove wire:target="validateAndAddOrder">
                             <i class="fas fa-plus-circle me-2"></i> إضافة المنتج إلى الفاتورة
                         </span>
@@ -332,15 +331,15 @@
         {{-- SECTION 3: ORDERS TABLE --}}
         @if(count($orders) > 0)
             <div class="form-card mb-4">
-                <div class="modal-header">
-                    <div class="d-flex align-items-center gap-2">
+                <div class="modal-header responsive-header">
+                    <div class="d-flex align-items-center gap-2 header-main">
                         <i class="fas fa-list-check fs-5"></i>
                         <div>
                             <h5 class="mb-0">عناصر الفاتورة</h5>
                             <small>جميع المنتجات المضافة</small>
                         </div>
                     </div>
-                    <div class="ms-auto d-flex align-items-center gap-2">
+                    <div class="ms-auto d-flex align-items-center gap-2 header-actions">
                         <span class="badge bg-light text-dark">{{ count($orders) }} عنصر</span>
                         <button type="button" class="btn btn-sm btn-outline-danger" wire:click="clearAllOrders">
                             <i class="fas fa-trash-alt me-1"></i> مسح الكل
@@ -381,9 +380,9 @@
                                     <td data-label="الشركة">{{ $order['namecompany'] }}</td>
                                     <td data-label="الصور">
                                         @if(count($order['images'] ?? []) > 0)
-                                            <div class="thumb-grid" style="margin:0">
+                                            <div class="thumb-grid table-thumb-grid mini-thumbs">
                                                 @foreach(array_slice($order['images'], 0, 3) as $image)
-                                                    <div class="thumb-item" style="width:36px;height:36px">
+                                                    <div class="thumb-item small-thumb">
                                                         @if(is_string($image))
                                                             <img src="{{ asset('storage/' . $image) }}" loading="lazy">
                                                         @else
@@ -401,13 +400,13 @@
                                     </td>
                                     <td data-label="السعر">{{ number_format($order['price'], 0) }}</td>
                                     <td data-label="الكمية">{{ $order['quantity'] }}</td>
-                                    <td data-label="الإجمالي" style="font-weight:700;color:var(--primary)">
+                                    <td data-label="الإجمالي" class="total-highlight">
                                         {{ number_format($order['price'] * $order['quantity'], 0) }}
                                     </td>
                                     <td data-label="مدة التوصيل">{{ $order['delivery_days'] ?? '—' }} يوم</td>
                                     <td data-label="تاريخ اليوم">{{ $order['today_date'] ?? now()->format('Y-m-d') }}</td>
                                     <td data-label="تاريخ التوصيل">{{ $order['delivery_date'] ?? '—' }}</td>
-                                    <td>
+                                    <td data-label="الإجراء">
                                         <button type="button" class="action-btn delete" wire:click="removeOrder({{ $index }})">
                                             <i class="fas fa-trash"></i>
                                         </button>
@@ -422,8 +421,8 @@
 
         {{-- SECTION 4: SUMMARY --}}
         <div class="form-card mb-4">
-            <div class="modal-header">
-                <div class="d-flex align-items-center gap-2">
+            <div class="modal-header responsive-header">
+                <div class="d-flex align-items-center gap-2 header-main">
                     <i class="fas fa-receipt fs-5"></i>
                     <div>
                         <h5 class="mb-0">ملخص الفاتورة</h5>
@@ -431,8 +430,9 @@
                     </div>
                 </div>
             </div>
-            <div class="p-4">
-                <div class="invoice-grid cols-2" style="align-items:center">
+
+            <div class="p-4 form-card-body">
+                <div class="invoice-grid cols-2 summary-grid">
 
                     <div class="summary-total-box">
                         <div class="total-label"><i class="fas fa-money-bill-wave me-1"></i> إجمالي الفاتورة</div>
@@ -442,7 +442,7 @@
                         @enderror
                     </div>
 
-                    <div class="d-flex flex-column flex-sm-row gap-3 justify-content-sm-end">
+                    <div class="d-flex flex-column flex-sm-row gap-3 justify-content-sm-end responsive-summary-actions">
                         <button type="submit" class="btn-save-invoice" wire:loading.attr="disabled"
                             @if(count($orders) === 0) disabled @endif>
                             <span wire:loading.remove wire:target="saveAll">
@@ -467,51 +467,28 @@
         </div>
 
     </form>
-</div>
 
-<script>
-    function pasteFromClipboard() {
-        navigator.clipboard.readText().then(text => {
-            @this.set('link', text);
-        }).catch(err => {
-            alert('تعذر الوصول إلى الحافظة. يرجى السماح بالوصول أو لصق الرابط يدوياً.');
-        });
-    }
-</script>
-
-<style>
-    /* Mobile table: card-style rows */
-    @media (max-width: 640px) {
-        .orders-table-wrap { overflow-x: unset; }
-        .custom-table thead { display: none; }
-        .custom-table tbody tr {
-            display: block; margin-bottom: 12px;
-            border: 1px solid var(--border); border-radius: 10px; padding: 12px;
+    <script>
+        function pasteFromClipboard() {
+            navigator.clipboard.readText().then(text => {
+                @this.set('link', text);
+            }).catch(err => {
+                alert('تعذر الوصول إلى الحافظة. يرجى السماح بالوصول أو لصق الرابط يدوياً.');
+            });
         }
-        .custom-table tbody td {
-            display: flex; justify-content: space-between;
-            align-items: center; padding: 6px 4px;
-            border-bottom: 1px solid var(--border); font-size: 13px;
-        }
-        .custom-table tbody td:last-child { border-bottom: none; justify-content: flex-end; }
-        .custom-table tbody td::before {
-            content: attr(data-label);
-            font-weight: 700; color: var(--text-secondary); font-size: 12px;
-        }
-    }
-    .paste-btn {
-    background: var(--primary);
-    color: #fff;
-    border: 1px solid var(--primary);
-    border-radius: 10px;
-    transition: var(--transition);
-}
+    </script>
 
-.paste-btn:hover {
-    background: var(--primary-light);
-    border-color: var(--primary-light);
-    color: #fff;
-}
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-</style>
+        html,
+        body {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+
+     
+    </style>
 </div>

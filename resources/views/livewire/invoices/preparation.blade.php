@@ -267,9 +267,9 @@
                         عرض {{ $invoices->firstItem() }} إلى {{ $invoices->lastItem() }}
                         من إجمالي {{ $invoices->total() }} فاتورة
                     </div>
-                    <div>
-                        {{ $invoices->links() }}
-                    </div>
+                     <div class="account-pagination-wrap">
+                                {{ $invoices->links('livewire::bootstrap') }}
+                </div>
                 </div>
             </div>
         @endif
