@@ -275,9 +275,6 @@
         @endif
     </div>
 
-
-    <!-- Modal -->
-
     <div class="modal fade" id="transferTruckModal" data-bs-backdrop="static" wire:ignore.self>
         <div class="modal-dialog ">
             <div class="modal-content ">

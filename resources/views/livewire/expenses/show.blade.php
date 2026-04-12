@@ -1,6 +1,10 @@
 <div class="container">
-    <h1 class="mb-4">Manage Expenses</h1>
-
+  <div class="invoice-page-header">
+            <div class="title-pill">
+                <i class="bi bi-receipt-cutoff"></i>
+                إدارة مصروفات
+            </div>
+        </div>
     @if(session()->has('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif

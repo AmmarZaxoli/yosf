@@ -101,7 +101,27 @@
                     <span class="nav-label">ارجاع الفواتير</span>
                 </a>
             </div>
-
+            <div class="nav-item-wrapper">
+                <a class="nav-btn {{ request()->routeIs('expenses.create') ? 'active' : '' }}"
+                    href="{{ route('expenses.create') }}">
+                    <span class="nav-icon"><i class="bi bi-receipt-cutoff"></i></span>
+                    <span class="nav-label">إدارة مصروفات</span>
+                </a>
+            </div>
+            <div class="nav-item-wrapper">
+                <a class="nav-btn {{ request()->routeIs('accounting.create') ? 'active' : '' }}"
+                    href="{{ route('accounting.create') }}">
+                    <span class="nav-icon"><i class="bi bi-bar-chart-steps"></i></span>
+                    <span class="nav-label">لوحة المحاسبة</span>
+                </a>
+            </div>
+            <div class="nav-item-wrapper">
+                <a class="nav-btn {{ request()->routeIs('print.multi') ? 'active' : '' }}"
+                    href="{{ route('print.multi') }}">
+                    <span class="nav-icon"><i class="bi bi-printer"></i></span>
+                    <span class="nav-label">طباعة الفواتير</span>
+                </a>
+            </div>
 
         </nav>
 
@@ -363,21 +383,21 @@
             });
         });
         // Add this to your script section
-document.addEventListener('DOMContentLoaded', function() {
-    const logoutBtn = document.getElementById('logoutBtn');
-    const logoutForm = document.getElementById('logoutForm');
-    
-    if (logoutBtn && logoutForm) {
-        logoutBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-            const isDark = currentTheme === 'dark';
-            
-            // Beautiful confirmation dialog
-            Swal.fire({
-                title: 'تسجيل الخروج',
-                html: `
+        document.addEventListener('DOMContentLoaded', function () {
+            const logoutBtn = document.getElementById('logoutBtn');
+            const logoutForm = document.getElementById('logoutForm');
+
+            if (logoutBtn && logoutForm) {
+                logoutBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+                    const isDark = currentTheme === 'dark';
+
+                    // Beautiful confirmation dialog
+                    Swal.fire({
+                        title: 'تسجيل الخروج',
+                        html: `
                     <div class="logout-modal">
                         <div class="logout-icon-wrapper">
                             <div class="logout-icon-circle">
@@ -392,33 +412,33 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                     </div>
                 `,
-                showCancelButton: true,
-                confirmButtonText: 'نعم، تسجيل خروج',
-                cancelButtonText: 'إلغاء',
-                confirmButtonColor: '#dc3545',
-                cancelButtonColor: '#6c757d',
-                reverseButtons: true,
-                background: isDark ? '#1a1a2e' : '#ffffff',
-                color: isDark ? '#ffffff' : '#000000',
-                width: '480px',
-                padding: '2rem',
-                showClass: {
-                    popup: 'animate__animated animate__zoomIn animate__faster'
-                },
-                hideClass: {
-                    popup: 'animate__animated animate__zoomOut animate__faster'
-                },
-                customClass: {
-                    popup: 'premium-swal-popup',
-                    confirmButton: 'premium-swal-confirm',
-                    cancelButton: 'premium-swal-cancel'
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Beautiful loading animation
-                    Swal.fire({
-                        title: 'جاري تسجيل الخروج',
-                        html: `
+                        showCancelButton: true,
+                        confirmButtonText: 'نعم، تسجيل خروج',
+                        cancelButtonText: 'إلغاء',
+                        confirmButtonColor: '#dc3545',
+                        cancelButtonColor: '#6c757d',
+                        reverseButtons: true,
+                        background: isDark ? '#1a1a2e' : '#ffffff',
+                        color: isDark ? '#ffffff' : '#000000',
+                        width: '480px',
+                        padding: '2rem',
+                        showClass: {
+                            popup: 'animate__animated animate__zoomIn animate__faster'
+                        },
+                        hideClass: {
+                            popup: 'animate__animated animate__zoomOut animate__faster'
+                        },
+                        customClass: {
+                            popup: 'premium-swal-popup',
+                            confirmButton: 'premium-swal-confirm',
+                            cancelButton: 'premium-swal-cancel'
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Beautiful loading animation
+                            Swal.fire({
+                                title: 'جاري تسجيل الخروج',
+                                html: `
                             <div class="loading-container">
                                 <div class="loading-spinner">
                                     <div class="spinner-ring"></div>
@@ -432,27 +452,27 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <p class="loading-subtext">يرجى الانتظار لحظة</p>
                             </div>
                         `,
-                        allowOutsideClick: false,
-                        allowEscapeKey: false,
-                        showConfirmButton: false,
-                        background: isDark ? '#1a1a2e' : '#ffffff',
-                        color: isDark ? '#ffffff' : '#000000',
-                        width: '450px',
-                        padding: '2rem',
-                        customClass: {
-                            popup: 'loading-swal-popup'
+                                allowOutsideClick: false,
+                                allowEscapeKey: false,
+                                showConfirmButton: false,
+                                background: isDark ? '#1a1a2e' : '#ffffff',
+                                color: isDark ? '#ffffff' : '#000000',
+                                width: '450px',
+                                padding: '2rem',
+                                customClass: {
+                                    popup: 'loading-swal-popup'
+                                }
+                            });
+
+                            // Submit form after animation
+                            setTimeout(() => {
+                                logoutForm.submit();
+                            }, 1500);
                         }
                     });
-                    
-                    // Submit form after animation
-                    setTimeout(() => {
-                        logoutForm.submit();
-                    }, 1500);
-                }
-            });
+                });
+            }
         });
-    }
-});
     </script>
 </body>
 

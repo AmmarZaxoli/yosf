@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Auth\Login;
+use Illuminate\Http\Request;
+use App\Models\Invoice;
+use App\Livewire\Print\Multi;
 
 Route::get('/', function () {
     return redirect('/login');
@@ -36,3 +39,19 @@ Route::middleware(['auth'])->group(function () {
     Route::view('/paying/returnpay', 'paying.returnpay')->name('paying.returnpay');
     Route::view('/accounting/create', 'accounting.create')->name('accounting.create');
     Route::view('/expenses/create', 'expenses.create')->name('expenses.create');
+    Route::view('/print/multi', 'print.multi')->name('print.multi');
+
+Route::get('/print/invoices', function () {
+    $ids = session('print_invoices', []);
+    
+    if (empty($ids)) {
+        return redirect()->back()->with('error', 'No invoices selected for printing');
+    }
+    
+    $invoices = Invoice::with(['customer', 'items'])->whereIn('id', $ids)->get();
+    
+    // Clear the session after retrieving
+    session()->forget('print_invoices');
+    
+    return view('multi.print', ['invoices' => $invoices]);
+})->name('print.multi.window');

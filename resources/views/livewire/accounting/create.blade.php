@@ -1,8 +1,9 @@
 <div>
     <div class="container-fluid py-4">
-        <div class="text-center my-4">
-            <div class="header-container d-inline-block">
-                <h3 class="header-title mb-1">لوحة المحاسبة</h3>
+        <div class="invoice-page-header">
+            <div class="title-pill">
+                <i class="bi bi-bar-chart-steps"></i>
+                 لوحة المحاسبة
             </div>
         </div>
 
